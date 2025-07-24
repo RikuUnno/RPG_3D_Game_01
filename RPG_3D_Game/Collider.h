@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
-
+#include "Layer.h"
 
 class Collider
 {
 private:
-	
+	Layer layer;
+	Layer collisionMask;
 
 public:
 	Collider();
