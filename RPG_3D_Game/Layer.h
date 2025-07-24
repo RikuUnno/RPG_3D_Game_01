@@ -3,10 +3,10 @@
 
 // ビットマスク用のLayer
 enum class Layer : uint32_t {
-	None	= 0,
-	Player	= 1 << 0,
-	Enemy	= 1 << 1,
-	Wall	= 1 << 2
+	None	= 0,		// 0b000
+	Player	= 1 << 0,	// 0b001
+	Enemy	= 1 << 1,	// 0b010
+	Env		= 1 << 2	// 0b100
 };
 
 // ビット演算オーバーロード

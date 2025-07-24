@@ -70,6 +70,12 @@
     <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo">
       <UniqueIdentifier>{0fedbf6f-8d9b-46df-b5ed-1513c9ea82e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo\Layer">
+      <UniqueIdentifier>{54304c99-fb38-440c-ab41-723ad1883b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo\Tag">
+      <UniqueIdentifier>{0ae378d0-0e21-4912-8e51-f09b4080d7ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -117,7 +123,10 @@
       <Filter>ヘッダー ファイル\HitCheck\Collider\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h">
-      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo</Filter>
+      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Tag.h">
+      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Tag</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

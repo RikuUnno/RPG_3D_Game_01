@@ -10,7 +10,7 @@ Collider::~Collider()
 
 }
 
-void Collider::EventCheck(std::vector<Collider> colliders)
+void Collider::EventCheck(std::vector<Collider*>& colliders)
 {
 	
 }
