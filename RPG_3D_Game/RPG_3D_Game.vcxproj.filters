@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\main">
+      <UniqueIdentifier>{250f04fc-c6d0-4b1d-a8e2-d6076f037b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Camera">
+      <UniqueIdentifier>{493e53ae-1d29-4446-8611-192aa0fe52d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Camera">
+      <UniqueIdentifier>{5f5250c8-7593-47fd-9dd5-8ce00c7f513c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameManager">
+      <UniqueIdentifier>{19b4fc90-420e-43cc-8ca4-ec190e65cf84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameManager">
+      <UniqueIdentifier>{aea360db-c9a2-4f82-9915-7e20dca7074e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Time">
+      <UniqueIdentifier>{4cf9fdab-614d-4adb-99b0-7a8061e91e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\TIme">
+      <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\main">
+      <UniqueIdentifier>{de33b42a-5b14-486a-928d-e4c79cb3d95c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{66803e32-d929-4777-bab5-599d3e613482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{45f14849-a146-4120-8979-66909ecc297c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck">
+      <UniqueIdentifier>{8d061e4c-0c36-473b-a104-c3007e02058b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider">
+      <UniqueIdentifier>{08ada502-394d-4b8a-b79e-be16ddd6efae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\ColliderManager">
+      <UniqueIdentifier>{96449ff1-a68a-4f79-b1d1-c3f6c329f902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck">
+      <UniqueIdentifier>{bcf95256-513d-4b32-843a-87b277a9283c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider">
+      <UniqueIdentifier>{c17360a3-72f6-4009-b1b8-3a2fae56deb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\ColliderManager">
+      <UniqueIdentifier>{27375e23-f440-47bd-b4a8-ddd9eba749e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\Collider">
+      <UniqueIdentifier>{93fd4e1d-b0ea-4ab5-add0-021b9e52925d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider\Collider">
+      <UniqueIdentifier>{bd08ecac-4568-4952-854e-5880cfae06b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo">
+      <UniqueIdentifier>{0fedbf6f-8d9b-46df-b5ed-1513c9ea82e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LoopGame.cpp">
+      <Filter>ソース ファイル\main</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソース ファイル\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>ソース ファイル\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>ソース ファイル\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>ソース ファイル\HitCheck\Collider\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderManager.cpp">
+      <Filter>ソース ファイル\HitCheck\ColliderManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h">
+      <Filter>ヘッダー ファイル\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>ヘッダー ファイル\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TIme.h">
+      <Filter>ヘッダー ファイル\TIme</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInfo.h">
+      <Filter>ヘッダー ファイル\main</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderManager.h">
+      <Filter>ヘッダー ファイル\HitCheck\ColliderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
