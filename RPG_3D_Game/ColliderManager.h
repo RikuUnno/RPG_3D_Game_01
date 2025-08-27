@@ -6,7 +6,7 @@
 class ColliderManager
 {
 private:
-	std::vector<Collider*> colliders;
+	std::vector<Collider*> colliders;	// すべてのコライダーを格納
 
 public:
 	ColliderManager();
@@ -20,7 +20,6 @@ public:
 
 public:
 	void AddCollider(Collider* collider); // コライダーの追加
-
 	void DeleteCollider(Collider* collider); // コライダーの削除
 
 public:

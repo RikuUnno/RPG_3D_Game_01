@@ -31,9 +31,6 @@
     <Filter Include="ソース ファイル\Time">
       <UniqueIdentifier>{4cf9fdab-614d-4adb-99b0-7a8061e91e20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\TIme">
-      <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\main">
       <UniqueIdentifier>{de33b42a-5b14-486a-928d-e4c79cb3d95c}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,18 @@
     <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo\Tag">
       <UniqueIdentifier>{0ae378d0-0e21-4912-8e51-f09b4080d7ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Time">
+      <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider\SphereCollider">
+      <UniqueIdentifier>{1dab04db-6a02-4d3d-89ee-3ad4ef335992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\SphereCollider">
+      <UniqueIdentifier>{0b4a8e29-0fb8-448d-a7cf-37af1da1f793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\ColliderType">
+      <UniqueIdentifier>{a41dd259-7a48-4e98-a15c-909b349a7659}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -99,6 +108,9 @@
     <ClCompile Include="ColliderManager.cpp">
       <Filter>ソース ファイル\HitCheck\ColliderManager</Filter>
     </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>ソース ファイル\HitCheck\Collider\SphereCollider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -107,8 +119,8 @@
     <ClInclude Include="GameManager.h">
       <Filter>ヘッダー ファイル\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="TIme.h">
-      <Filter>ヘッダー ファイル\TIme</Filter>
+    <ClInclude Include="Time.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
     </ClInclude>
     <ClInclude Include="GameInfo.h">
       <Filter>ヘッダー ファイル\main</Filter>
@@ -127,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="Tag.h">
       <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\SphereCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderType.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\ColliderType</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

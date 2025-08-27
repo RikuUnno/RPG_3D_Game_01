@@ -18,7 +18,6 @@ void Time::Update()
 	m_currentFrame = GetNowCount();	// 現在のフレームの経過時間
 	m_deltaTime = (m_currentFrame - m_previousFrame) / 1000.0; // ミリ秒→秒
 
-
 }
 
 double Time::DeltaTime()

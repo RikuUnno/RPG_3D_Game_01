@@ -4,7 +4,7 @@
 class Camera
 {
 private:
-	VECTOR m_camPos();
+	VECTOR m_camPos;
 
 public:
 	Camera();
