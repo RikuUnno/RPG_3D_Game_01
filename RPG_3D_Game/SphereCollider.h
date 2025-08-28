@@ -1,9 +1,22 @@
 #pragma once
-#include "DxLib.h"
 #include "Collider.h"
+#include "DxLib.h"
 
-class SphereCollider : public Collider
+class ColliderManager;
+
+class SphereCollider
+	: public Collider
 {
 private:
-	VECTOR center;
+
+public:
+	SphereCollider(VECTOR spherePos, double radius, ColliderManager* manager, bool isActive);
+	virtual ~SphereCollider();
+	SphereCollider(const SphereCollider& other);
+
+public:
+	const SphereType* GetSphere() const { return std::get_if<SphereType>(&m_data); } // SphereTypeÇÃÉQÉbÉ^Å[
+
+public:
+	void SetAABB() override;
 };

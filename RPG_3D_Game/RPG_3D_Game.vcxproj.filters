@@ -76,14 +76,26 @@
     <Filter Include="ヘッダー ファイル\Time">
       <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider\SphereCollider">
-      <UniqueIdentifier>{1dab04db-6a02-4d3d-89ee-3ad4ef335992}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\SphereCollider">
-      <UniqueIdentifier>{0b4a8e29-0fb8-448d-a7cf-37af1da1f793}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\HitCheck\Collider\ColliderType">
       <UniqueIdentifier>{a41dd259-7a48-4e98-a15c-909b349a7659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider\SphereTypeCollider">
+      <UniqueIdentifier>{bc9c51ff-556e-4b90-89f2-dd163f667931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider\BoxTypeCollider">
+      <UniqueIdentifier>{ffe0c70e-3583-4806-905e-b600779e533f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\HitCheck\Collider\CapsuleTypeCollider">
+      <UniqueIdentifier>{362ee7b4-2074-4d6f-9c26-463af9951653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\SphereTypeCollider">
+      <UniqueIdentifier>{3f5f021e-f91c-4dcb-b511-da4403591abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\BoxTypeCollider">
+      <UniqueIdentifier>{aa485562-0795-4f1d-8221-8477bb4a5528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\HitCheck\Collider\CapsuleTypeCollider">
+      <UniqueIdentifier>{d9e063c9-c63d-4be8-acf6-e0c82c1a7a61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,8 +120,14 @@
     <ClCompile Include="ColliderManager.cpp">
       <Filter>ソース ファイル\HitCheck\ColliderManager</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>ソース ファイル\HitCheck\Collider\BoxTypeCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CapsuleCollider.cpp">
+      <Filter>ソース ファイル\HitCheck\Collider\CapsuleTypeCollider</Filter>
+    </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
-      <Filter>ソース ファイル\HitCheck\Collider\SphereCollider</Filter>
+      <Filter>ソース ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,11 +158,17 @@
     <ClInclude Include="Tag.h">
       <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Tag</Filter>
     </ClInclude>
-    <ClInclude Include="SphereCollider.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\SphereCollider</Filter>
-    </ClInclude>
     <ClInclude Include="ColliderType.h">
       <Filter>ヘッダー ファイル\HitCheck\Collider\ColliderType</Filter>
+    </ClInclude>
+    <ClInclude Include="CapsuleCollider.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\CapsuleTypeCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\BoxTypeCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>ヘッダー ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

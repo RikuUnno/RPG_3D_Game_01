@@ -2,6 +2,8 @@
 #include "GameInfo.h"
 #include "TIme.h"
 
+#include "Player.h"
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     ChangeWindowMode(TRUE); // ウインドウモードで起動
@@ -16,7 +18,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
     
     Time time;
-    
+
+    Player player;
+
     // 描画先画面を裏画面にセット
     SetDrawScreen(DX_SCREEN_BACK);
     

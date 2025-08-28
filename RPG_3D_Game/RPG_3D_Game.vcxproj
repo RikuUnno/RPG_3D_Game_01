@@ -163,7 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CapsuleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -173,7 +175,9 @@
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CapsuleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderType.h" />
     <ClInclude Include="Layer.h" />
