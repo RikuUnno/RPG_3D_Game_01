@@ -15,7 +15,7 @@ public:
 	CapsuleCollider(const CapsuleCollider& other);
 
 public:
-	const CapsuleType* GetCapsule() const { return std::get_if<CapsuleType>(&m_data); } // CapsuleTypeのゲッター
+	const CapsuleType* GetCapsule() const override { return std::get_if<CapsuleType>(&m_data); } // CapsuleTypeのゲッター
 
 public:
 	void SetAABB() override;

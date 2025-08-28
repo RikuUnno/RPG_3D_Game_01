@@ -15,7 +15,7 @@ public:
 	BoxCollider(const BoxCollider& other);
 
 public:
-	const BoxType* GetBox() const { return std::get_if<BoxType>(&m_data); } // BoxTypeのゲッター
+	const BoxType* GetBox() const override { return std::get_if<BoxType>(&m_data); } // BoxTypeのゲッター
 
 public:
 	void SetAABB() override;

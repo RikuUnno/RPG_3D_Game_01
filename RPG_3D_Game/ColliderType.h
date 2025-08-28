@@ -17,13 +17,13 @@ struct BoxType {            // AABB兼Box
 struct SphereType           // 球    
 {
 	VECTOR spherePos;		// 球の中心点
-	double radius;		// 円の半径
+	double radius;			// 円の半径
 };
 
 struct CapsuleType			// カプセル
 {
-	VECTOR posTop;		// カプセルの上端
+	VECTOR posTop;			// カプセルの上端
 	VECTOR posBottom;		// カプセルの下端
-	double height;		// カプセルの高さ
-	double radius;		// カプセルの半径
+	double height;			// カプセルの高さ
+	double radius;			// カプセルの半径
 };

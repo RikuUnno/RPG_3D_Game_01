@@ -15,7 +15,7 @@ public:
 	SphereCollider(const SphereCollider& other);
 
 public:
-	const SphereType* GetSphere() const { return std::get_if<SphereType>(&m_data); } // SphereTypeのゲッター
+	const SphereType* GetSphere() const override { return std::get_if<SphereType>(&m_data); } // SphereTypeのゲッター
 
 public:
 	void SetAABB() override;
