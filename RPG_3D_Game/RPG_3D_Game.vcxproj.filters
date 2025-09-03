@@ -97,6 +97,9 @@
     <Filter Include="ヘッダー ファイル\HitCheck\Collider\CapsuleTypeCollider">
       <UniqueIdentifier>{d9e063c9-c63d-4be8-acf6-e0c82c1a7a61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Transform">
+      <UniqueIdentifier>{a9051f8c-5165-408d-b6df-f3d253174411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
       <Filter>ヘッダー ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>ヘッダー ファイル\Transform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

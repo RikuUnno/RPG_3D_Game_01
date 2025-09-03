@@ -188,6 +188,7 @@
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
