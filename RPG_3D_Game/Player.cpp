@@ -1,9 +1,5 @@
 #include "Player.h"
 
-#include "ColliderManager.h"
-VECTOR vec = VGet(1.0f, 1.0f, 1.0f);
-ColliderManager cm;
-
 Player::Player()
 {
 

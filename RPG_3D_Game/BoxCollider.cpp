@@ -2,19 +2,22 @@
 #include "ColliderType.h"
 #include <variant>
 
+// コンストラクタ
 BoxCollider::BoxCollider(VECTOR min, VECTOR max, ColliderManager* manager, bool isActive)
 	: Collider(BoxType{ min ,max }, manager, isActive)
 {
 	SetAABB(); // AABBの設定
 }
 
+// デストラクタ
 BoxCollider::~BoxCollider()
 {}
 
+// コピコン
 BoxCollider::BoxCollider(const BoxCollider& other)
 	: Collider(BoxType{ other.GetBox()->min ,other.GetBox()->max}, other.m_manager, other.m_isActive)
 {
-#ifdef _DEBUG
+#ifdef _DEBUG // コピコンがよばれたときの処理（把握用）
 	MessageBoxW(
 		nullptr,
 		L"BoxCollider コピーコンストラクタが呼ばれました。",

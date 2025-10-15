@@ -1,6 +1,7 @@
 #include "TIme.h"
 #include "DxLib.h"
 
+// コンストラクタ
 Time::Time()
 {
 	m_currentFrame = 0;
@@ -8,9 +9,11 @@ Time::Time()
 	m_deltaTime = 0;
 }
 
+// デストラクタ
 Time::~Time()
 {}
 
+// 更新
 void Time::Update()
 {
 	// deltaTimeの処理
@@ -20,6 +23,7 @@ void Time::Update()
 
 }
 
+// デルタタイムの取得
 double Time::DeltaTime()
 {
 	return m_deltaTime;

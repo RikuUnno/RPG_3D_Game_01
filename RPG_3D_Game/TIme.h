@@ -8,13 +8,13 @@ private:
 	double m_deltaTime; // フレーム間の差分
 
 public:
-	Time();
-	virtual ~Time();
+	Time(); // コンストラクタ
+	virtual ~Time(); // デストラクタ
 
 public:
-	void Update();
+	void Update(); // 更新
 
 public:
 
-	double DeltaTime();
+	double DeltaTime(); // デルタタイムの取得
 };

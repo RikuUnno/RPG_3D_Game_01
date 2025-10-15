@@ -62,8 +62,8 @@ void ColliderManager::BroadPhase()
         Collider* b = pair.second;
 
         // AABB を取得
-        AABB aAABB = a->GetAABB();
-        AABB bAABB = b->GetAABB();
+        AABB aAABB = *a->GetAABB();
+        AABB bAABB = *b->GetAABB();
 
         if (CheckAABB(aAABB, bAABB))
         {
@@ -138,8 +138,8 @@ void ColliderManager::NarrowPhase()
         if (isHit)
         {
 
-            colA->AddCurrentHitCollider(colB);
-            colB->AddCurrentHitCollider(colA);
+            // colA->AddCurrentHitCollider(colB);
+            // colB->AddCurrentHitCollider(colA);
 
             m_collisionPairs.emplace_back(colA, colB);
         }

@@ -1,15 +1,14 @@
 #pragma once
 #include "DXlib.h"
 #include "CapsuleCollider.h"
+#include "GameObject.h"
 
-class ColliderManager;
-
-class Player
+class Player 
+	: public GameObject
 {
-private: // Collider
+private: 
 
-private: // オブジェクトの状態
-	bool m_isActive; // オブジェクト（コライダー）の状態
+private: 
 
 public:
 	Player();

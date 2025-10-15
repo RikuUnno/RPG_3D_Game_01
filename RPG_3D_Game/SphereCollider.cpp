@@ -2,19 +2,22 @@
 #include "ColliderType.h"
 #include <variant>
 
+// コンストラクタ
 SphereCollider::SphereCollider(VECTOR spherePos, double radius, ColliderManager* manager, bool isActive)
 	: Collider(SphereType{ spherePos ,radius }, manager, isActive)
 {
 	SetAABB(); // AABBの設定
 }
 
+// デストラクタ
 SphereCollider::~SphereCollider()
 {}
 
+// コピコン
 SphereCollider::SphereCollider(const SphereCollider& other)
 	: Collider(SphereType{ other.GetSphere()->spherePos, other.GetSphere()->radius }, other.m_manager, other.m_isActive)
 {
-#ifdef _DEBUG
+#ifdef _DEBUG // コピコンがよばれたときの処理（把握用）
 	MessageBoxW(
 		nullptr,
 		L"SphereCollider コピーコンストラクタが呼ばれました。",

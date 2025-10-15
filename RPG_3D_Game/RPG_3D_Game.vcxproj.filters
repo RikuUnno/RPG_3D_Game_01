@@ -100,6 +100,18 @@
     <Filter Include="ヘッダー ファイル\Transform">
       <UniqueIdentifier>{a9051f8c-5165-408d-b6df-f3d253174411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Quaternion">
+      <UniqueIdentifier>{61e16313-b9d9-491c-b59e-dd898720c70d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Quaternion">
+      <UniqueIdentifier>{d0a66df4-d02e-45c5-ad74-e5e154129d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject">
+      <UniqueIdentifier>{3e34ed97-5eef-4e5a-a430-f609bc60b9c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject">
+      <UniqueIdentifier>{6ae226c4-53d0-4926-a8dd-ec5558237e7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -131,6 +143,12 @@
     </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
       <Filter>ソース ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>ソース ファイル\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>ヘッダー ファイル\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>ヘッダー ファイル\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

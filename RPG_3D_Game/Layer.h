@@ -1,3 +1,4 @@
+// “–‚½‚è”»’è‚ğƒŒƒCƒ„[/bit‚Å”»’è‚·‚é—p
 #pragma once
 #include <stdint.h>
 

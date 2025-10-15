@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿// 当たり判定を管理するクラス
+
+#pragma once
 #include "Collider.h"
 
 #include <vector>

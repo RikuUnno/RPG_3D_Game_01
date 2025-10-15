@@ -1,4 +1,7 @@
-#pragma once
+// ゲームのフローを司るクラス
+// シングルトン設計
+
+#pragma once 
 
 class GameManager
 {

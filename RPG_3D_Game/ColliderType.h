@@ -1,3 +1,5 @@
+// コライダーの情報をまとめている
+
 #pragma once
 #include "DxLib.h"
 

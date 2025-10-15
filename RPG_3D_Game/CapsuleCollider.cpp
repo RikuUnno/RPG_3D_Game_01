@@ -2,20 +2,23 @@
 #include "ColliderType.h"
 #include <variant>
 
+// コンストラクタ
 CapsuleCollider::CapsuleCollider(VECTOR top, VECTOR bottom, double height, double radius, ColliderManager* manager, bool isActive)
 	: Collider(CapsuleType{ top, bottom, height, radius }, manager, isActive)
 {
 	SetAABB(); // AABBの設定
 }
 
+// デストラクタ
 CapsuleCollider::~CapsuleCollider()
 {}
 
+// コピコン
 CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
     : Collider(CapsuleType{ other.GetCapsule()->posTop, other.GetCapsule()->posBottom,other.GetCapsule()->height, other.GetCapsule()->radius },
         other.m_manager, other.m_isActive)
 {
-#ifdef _DEBUG
+#ifdef _DEBUG // コピコンがよばれたときの処理（把握用）
     MessageBoxW(
         nullptr,
         L"CapsuleCollider コピーコンストラクタが呼ばれました。",

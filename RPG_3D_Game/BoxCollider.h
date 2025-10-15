@@ -9,14 +9,14 @@ class BoxCollider
 {
 private:
 
-public:
+public: // コライダー関係
 	BoxCollider(VECTOR min, VECTOR max, ColliderManager* manager, bool isActive);
 	virtual ~BoxCollider();
 	BoxCollider(const BoxCollider& other);
 
-public:
+public: // ゲッターセッター
 	const BoxType* GetBox() const override { return std::get_if<BoxType>(&m_data); } // BoxTypeのゲッター
 
-public:
+public: // 当たり判定関係
 	void SetAABB() override;
 };

@@ -15,9 +15,7 @@ public: // コンストラクタ
 	Camera(const Camera&) = delete;
 	void operator=(const Camera&) = delete;
 
-public: // 基本進行
+public: // 更新
 	void Update();
-
-
 
 };
