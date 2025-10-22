@@ -27,6 +27,18 @@ SphereCollider::SphereCollider(const SphereCollider& other)
 #endif // _DEBUG
 }
 
+// Update
+void SphereCollider::Update()
+{
+
+}
+
+// Transform基準のコライダーサイズ設定
+void SphereCollider::SetTrans()
+{
+
+}
+
 // AABBの設定
 void SphereCollider::SetAABB()
 {

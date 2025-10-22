@@ -27,6 +27,18 @@ BoxCollider::BoxCollider(const BoxCollider& other)
 #endif // _DEBUG
 }
 
+// Update
+void BoxCollider::Update()
+{
+
+}
+
+// Transform基準のコライダーサイズ設定
+void BoxCollider::SetTrans()
+{
+
+}
+
 // AABBの設定
 void BoxCollider::SetAABB()
 {
@@ -35,3 +47,4 @@ void BoxCollider::SetAABB()
 	aabb.min = BoxPos.min;
 	aabb.max = BoxPos.max;
 }
+

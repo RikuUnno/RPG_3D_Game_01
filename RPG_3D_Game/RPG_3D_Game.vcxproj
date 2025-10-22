@@ -175,6 +175,7 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />

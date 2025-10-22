@@ -14,6 +14,12 @@ public: // コライダー関係
 	virtual ~SphereCollider();
 	SphereCollider(const SphereCollider& other);
 
+public:
+	void Update() override; // 進行
+
+private: // Transform基準のコライダーサイズ設定
+	void SetTrans() override;
+
 public: // ゲッターセッター
 	const SphereType* GetSphere() const override { return std::get_if<SphereType>(&m_data); } // SphereTypeのゲッター
 

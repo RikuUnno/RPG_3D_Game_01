@@ -7,3 +7,4 @@ m_quat(quat)
 Quaternion::~Quaternion()
 {}
 
+

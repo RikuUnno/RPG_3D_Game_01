@@ -1,3 +1,15 @@
 #include "GameObject.h"
+#include "DxLib.h"
 
-// ゲームにおけるオブジェクトを入れる
+// コンストラクタ
+GameObject::GameObject()
+{
+	m_isActive = true; // アクティブで初期化
+	
+}
+
+// デストラクタ
+GameObject::~GameObject()
+{
+
+}

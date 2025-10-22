@@ -18,4 +18,6 @@ public: // コンストラクタ
 public: // 更新
 	void Update();
 
+
+
 };

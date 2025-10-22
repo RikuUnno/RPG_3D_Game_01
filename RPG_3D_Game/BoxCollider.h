@@ -14,6 +14,12 @@ public: // コライダー関係
 	virtual ~BoxCollider();
 	BoxCollider(const BoxCollider& other);
 
+public:
+	void Update() override; // 進行
+
+private: // Transform基準のコライダーサイズ設定
+	void SetTrans() override;
+
 public: // ゲッターセッター
 	const BoxType* GetBox() const override { return std::get_if<BoxType>(&m_data); } // BoxTypeのゲッター
 

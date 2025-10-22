@@ -112,6 +112,9 @@
     <Filter Include="ソース ファイル\GameObject">
       <UniqueIdentifier>{6ae226c4-53d0-4926-a8dd-ec5558237e7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Transform">
+      <UniqueIdentifier>{e0284e6d-a02d-48be-9ec1-5b0062d9eda5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>ソース ファイル\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

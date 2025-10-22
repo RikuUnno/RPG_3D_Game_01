@@ -14,6 +14,12 @@ public: // コンストラクタ
 	virtual ~CapsuleCollider();
 	CapsuleCollider(const CapsuleCollider& other);
 
+public:
+	void Update() override; // 進行
+
+private: // Transform基準のコライダーサイズ設定
+	void SetTrans() override;
+
 public: // ゲッターセッター
 	const CapsuleType* GetCapsule() const override { return std::get_if<CapsuleType>(&m_data); } // CapsuleTypeのゲッター
 

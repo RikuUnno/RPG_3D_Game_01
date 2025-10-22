@@ -34,29 +34,41 @@ Collider::Collider(const Collider&)
 #endif // _DEBUG
 }
 
-// 基本進行
-void Collider::Update()
+//// アクティブ時
+//void Collider::Activate()
+//{
+//
+//}
+//
+//// 非アクティブ時
+//void Collider::Deactivate()
+//{
+//
+//}
+
+// デバック用のAABBを線で表示
+void Collider::DrawAABB() const
 {
-	if (m_isActive)
-	{
-		Activate();
-	}
-	else if (!m_isActive)
-	{
-		Deactivate();
-	}
-}
+	int color = GetColor(255, 255, 255);
 
-// アクティブ時
-void Collider::Activate()
-{
+	VECTOR p[8] = {
+		VGet(aabb.min.x, aabb.min.y, aabb.min.z),
+		VGet(aabb.max.x, aabb.min.y, aabb.min.z),
+		VGet(aabb.max.x, aabb.max.y, aabb.min.z),
+		VGet(aabb.min.x, aabb.max.y, aabb.min.z),
+		VGet(aabb.min.x, aabb.min.y, aabb.max.z),
+		VGet(aabb.max.x, aabb.min.y, aabb.max.z),
+		VGet(aabb.max.x, aabb.max.y, aabb.max.z),
+		VGet(aabb.min.x, aabb.max.y, aabb.max.z)
+	};
 
-}
-
-// 非アクティブ時
-void Collider::Deactivate()
-{
-
+	// 線を描画
+	DrawLine3D(p[0], p[1], color); DrawLine3D(p[1], p[2], color);
+	DrawLine3D(p[2], p[3], color); DrawLine3D(p[3], p[0], color);
+	DrawLine3D(p[4], p[5], color); DrawLine3D(p[5], p[6], color);
+	DrawLine3D(p[6], p[7], color); DrawLine3D(p[7], p[4], color);
+	DrawLine3D(p[0], p[4], color); DrawLine3D(p[1], p[5], color);
+	DrawLine3D(p[2], p[6], color); DrawLine3D(p[3], p[7], color);
 }
 
 // イベントチェック

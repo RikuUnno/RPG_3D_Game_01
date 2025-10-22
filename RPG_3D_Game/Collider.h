@@ -4,10 +4,12 @@
 #include "Layer.h"
 #include "Tag.h"
 #include "ColliderType.h"
+#include "GameObject.h"
 
 class ColliderManager; 
 
 class Collider
+	: public GameObject
 {
 protected: // オブジェクトの状態
 	bool m_isActive; // オブジェクト（コライダー）の状態
@@ -39,9 +41,12 @@ public: // コンストラクタ云々
 	void operator=(const Collider&) = delete;	// 設計中に変えるかも
 
 public: // 進行用
-	void Update();		// 基本進行の関数
-	void Activate();	// アクティブ時
-	void Deactivate();	// 非アクティブ時
+	virtual void Update() = 0;		// 基本進行の関数
+	//void Activate();	// アクティブ時 
+	//void Deactivate();	// 非アクティブ時
+
+public: // ポジション関係
+	virtual void SetTrans() = 0;
 
 public: // レイヤー/マスク処理用変数の設定/再設定用
 	virtual void SetLayer(Layer layer)	 { m_layer = layer; }								// レイヤーの設定/再設定
@@ -66,7 +71,9 @@ public: // 状態設定
 	void SetActiveCollider(bool active) { m_isActive = active; } // 状態の設定
 
 public: // 当たり判定の応答
-	virtual void SetAABB() = 0; // AABBの設定（純粋）
+	virtual void SetAABB() = 0; // AABBの設定
+
+	void DrawAABB() const; // AABBの可視化（デバッグ用）
 
 	// イベントチェック
 	void EventCheck(std::vector<Collider*> &colliders);

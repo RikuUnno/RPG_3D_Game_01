@@ -1,13 +1,10 @@
 #pragma once
 #include "DXlib.h"
-#include "CapsuleCollider.h"
 #include "GameObject.h"
 
 class Player 
 	: public GameObject
 {
-private: 
-
 private: 
 
 public:

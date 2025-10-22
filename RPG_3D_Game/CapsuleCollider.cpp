@@ -28,6 +28,18 @@ CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
 #endif // _DEBUG
 }
 
+// Update
+void CapsuleCollider::Update()
+{
+
+}
+
+// Transform基準のコライダーサイズ設定
+void CapsuleCollider::SetTrans()
+{
+
+}
+
 // AABBの設定
 void CapsuleCollider::SetAABB()
 {
