@@ -115,6 +115,27 @@
     <Filter Include="ソース ファイル\Transform">
       <UniqueIdentifier>{e0284e6d-a02d-48be-9ec1-5b0062d9eda5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{33dc5321-002a-4174-9224-d6121bb174ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{a3c2f01b-dc88-41f6-aa95-e753b3c1eab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Scenes">
+      <UniqueIdentifier>{d8f91f9d-8730-4da5-b488-72f0cedd9e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Scenes">
+      <UniqueIdentifier>{cbe18edc-bef6-42e0-aa8a-3f616a715e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\SceneManager">
+      <UniqueIdentifier>{1970206c-8f1c-4668-a551-a8471ca67dc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\SceneManager">
+      <UniqueIdentifier>{91dcb5db-6dd7-4df9-976e-a07ed326e50b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\SceneManager\SceneManager">
+      <UniqueIdentifier>{bbf7ae03-aa1c-467d-bda8-3e6502041979}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -205,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

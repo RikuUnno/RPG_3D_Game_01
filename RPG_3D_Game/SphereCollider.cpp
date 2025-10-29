@@ -3,8 +3,15 @@
 #include <variant>
 
 // コンストラクタ
-SphereCollider::SphereCollider(VECTOR spherePos, double radius, ColliderManager* manager, bool isActive)
-	: Collider(SphereType{ spherePos ,radius }, manager, isActive)
+SphereCollider::SphereCollider(Transform transform, float radius, ColliderManager* manager)
+	: Collider([transform, radius]() {
+			SphereType s;
+			s.spherePos = transform.GetPos(); // Transformの座標
+			s.radius = radius;
+			return s;
+		}(),
+	manager,
+	transform)
 {
 	SetAABB(); // AABBの設定
 }
@@ -15,7 +22,7 @@ SphereCollider::~SphereCollider()
 
 // コピコン
 SphereCollider::SphereCollider(const SphereCollider& other)
-	: Collider(SphereType{ other.GetSphere()->spherePos, other.GetSphere()->radius }, other.m_manager, other.m_isActive)
+	: Collider(SphereType{ other.GetSphere()->spherePos, other.GetSphere()->radius }, other.m_manager, other.gameobject.GetTrans().GetPos())
 {
 #ifdef _DEBUG // コピコンがよばれたときの処理（把握用）
 	MessageBoxW(

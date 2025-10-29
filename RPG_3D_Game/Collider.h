@@ -6,13 +6,14 @@
 #include "ColliderType.h"
 #include "GameObject.h"
 
+
 class ColliderManager; 
 
 class Collider
 	: public GameObject
 {
 protected: // オブジェクトの状態
-	bool m_isActive; // オブジェクト（コライダー）の状態
+	GameObject gameobject;
 
 protected: // コライダーの種類に応じたPos用
 	ColliderType m_type;									// コライダーの種類
@@ -34,7 +35,7 @@ protected: // レイヤー/マスク処理用
 	Tag m_tag;				// Tag
 
 public: // コンストラクタ云々
-	Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, ColliderManager* manager, bool isActive);
+	Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, ColliderManager* manager, Transform tarans);
 	virtual ~Collider();
 
 	Collider(const Collider&);			// 設計中に変えるかも

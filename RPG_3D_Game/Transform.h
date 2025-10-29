@@ -4,11 +4,11 @@
 class Transform
 {
 private:
-	VECTOR m_trans;		// 座標
+	VECTOR m_pos;		// 座標
 	VECTOR m_rot;		// 回転
 	VECTOR m_scale;		// スケール
 
-	MATRIX m_matTrans;	// 座標行列
+	MATRIX m_matPos;	// 座標行列
 	MATRIX m_matRot;	// 回転行列
 	MATRIX m_matScale;	// スケール行列
 	MATRIX m_worldMat;	// ローカル→ワールド行列（合成結果）
@@ -19,10 +19,10 @@ public: // コンストラクタ等
 	virtual ~Transform();
 
 public: // ゲッター/セッター 
-	VECTOR GetTrans() const { return m_trans; }
+	VECTOR GetPos() const { return m_pos; }
 	VECTOR GetRot() const { return m_rot; }
 	VECTOR GetScale() const { return m_scale; }
-	void SetTrans(VECTOR trans) { m_trans = trans; }
+	void SetPos(VECTOR trans) { m_pos = trans; }
 	void SetRot(VECTOR rot) { m_rot = rot; }
 	void SetScale(VECTOR scale) { m_scale = scale; }
 

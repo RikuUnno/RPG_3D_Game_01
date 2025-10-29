@@ -2,14 +2,16 @@
 #include "ColliderManager.h"
 
 // コンストラクタ
-Collider::Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, ColliderManager* manager, bool isActive)	:
+Collider::Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, ColliderManager* manager, Transform trans)	:
 	m_type((ColliderType)data.index()), m_data(data), 
-	m_manager(manager), m_isActive(isActive)
+	m_manager(manager)
 {
 	// 変数の初期化
 	m_layer = Layer::None;
 	m_collisionMask = Layer::None;
 	m_tag = Tag::None;
+
+	gameobject.SetTransform(trans);
 
 	m_manager->AddCollider(this); // ColliderをManagerに追加
 

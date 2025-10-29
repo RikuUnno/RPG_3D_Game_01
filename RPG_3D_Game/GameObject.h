@@ -18,4 +18,8 @@ public:
 protected:
 	bool IsActive(bool active) { m_isActive = active; } // 引数がtrueならアクティブfalseなら非アクティブにする関数
 
+public:
+	Transform GetTrans() const; // Transformを返す
+	void SetTransform(Transform trans); // Transformをセットする
+
 };

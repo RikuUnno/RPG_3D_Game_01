@@ -1,5 +1,6 @@
 #pragma once
 #include "Collider.h"
+#include "Transform.h"
 #include "DxLib.h"
 
 class ColliderManager;
@@ -10,7 +11,7 @@ class SphereCollider
 private:
 
 public: // コライダー関係
-	SphereCollider(VECTOR spherePos, double radius, ColliderManager* manager, bool isActive);
+	SphereCollider(Transform transform, float radius, ColliderManager* manager);
 	virtual ~SphereCollider();
 	SphereCollider(const SphereCollider& other);
 

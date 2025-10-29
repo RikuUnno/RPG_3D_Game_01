@@ -3,22 +3,22 @@
 Transform::Transform()
 { 
 	// 初期値：原点・回転なし・等倍スケール
-	m_trans = VGet(0.0f, 0.0f, 0.0f);
+	m_pos = VGet(0.0f, 0.0f, 0.0f);
 	m_rot   = VGet(0.0f, 0.0f, 0.0f);
 	m_scale = VGet(1.0f, 1.0f, 1.0f);
 
 	// 各行列を単位行列で初期化
-	m_matTrans	= MGetIdent();
+	m_matPos	= MGetIdent();
 	m_matRot	= MGetIdent();
 	m_matScale	= MGetIdent();
 	m_worldMat	= MGetIdent();
 }
 
 Transform::Transform(VECTOR trans, VECTOR rot, VECTOR scale)
-	: m_trans(trans), m_rot(rot), m_scale(scale)
+	: m_pos(trans), m_rot(rot), m_scale(scale)
 {
 	// 各行列を単位行列で初期化
-	m_matTrans = MGetIdent();
+	m_matPos = MGetIdent();
 	m_matRot = MGetIdent();
 	m_matScale = MGetIdent();
 	m_worldMat = MGetIdent();
@@ -46,10 +46,10 @@ void Transform::UpdateMatrix()
 	// 行列合成 (X→Y→Z の順で適用)
 	m_matRot = MMult(MMult(m_rotX, m_rotY), m_rotZ);
 
-	m_matTrans = MGetTranslate(m_trans);
+	m_matPos = MGetTranslate(m_pos);
 
 	// スケール → 回転 → 移動 の順に適用
-	m_worldMat = MMult(MMult(m_matScale, m_matRot), m_matTrans);
+	m_worldMat = MMult(MMult(m_matScale, m_matRot), m_matPos);
 }
 
 // ワールド座標を返す
