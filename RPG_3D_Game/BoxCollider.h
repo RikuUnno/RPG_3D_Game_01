@@ -10,7 +10,7 @@ class BoxCollider
 private:
 
 public: // コライダー関係
-	BoxCollider(VECTOR min, VECTOR max, ColliderManager* manager, bool isActive);
+	BoxCollider(Transform transfrom, ColliderManager* manager);
 	virtual ~BoxCollider();
 	BoxCollider(const BoxCollider& other);
 

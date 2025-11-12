@@ -15,8 +15,9 @@ public:
 	GameObject(); // コンストラクタ
 	virtual ~GameObject(); // デストラクト
 
-protected:
-	bool IsActive(bool active) { m_isActive = active; } // 引数がtrueならアクティブfalseなら非アクティブにする関数
+public:
+	void SetActive(bool active) { m_isActive = active; } // アクティブ状態を設定
+	bool IsActive() const { return m_isActive; }         // アクティブ状態を取得
 
 public:
 	Transform GetTrans() const; // Transformを返す

@@ -11,7 +11,7 @@ Collider::Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, C
 	m_collisionMask = Layer::None;
 	m_tag = Tag::None;
 
-	gameobject.SetTransform(trans);
+	gameObject.SetTransform(trans);
 
 	m_manager->AddCollider(this); // Collider‚ğManager‚É’Ç‰Á
 

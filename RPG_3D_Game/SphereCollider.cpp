@@ -22,8 +22,20 @@ SphereCollider::~SphereCollider()
 
 // コピコン
 SphereCollider::SphereCollider(const SphereCollider& other)
-	: Collider(SphereType{ other.GetSphere()->spherePos, other.GetSphere()->radius }, other.m_manager, other.gameobject.GetTrans().GetPos())
+	: Collider(
+		[&other]() {
+			SphereType s;
+			s.spherePos = other.GetSphere()->spherePos;
+			s.radius = other.GetSphere()->radius;
+			return s;
+		}(),
+			other.m_manager,
+			other.gameObject.GetTrans() // Transformをそのままコピー
+			)
 {
+
+	SetAABB(); // AABBの再設定
+
 #ifdef _DEBUG // コピコンがよばれたときの処理（把握用）
 	MessageBoxW(
 		nullptr,
@@ -37,7 +49,9 @@ SphereCollider::SphereCollider(const SphereCollider& other)
 // Update
 void SphereCollider::Update()
 {
-
+	// Transform の位置を反映
+	std::get<SphereType>(m_data).spherePos = gameObject.GetTrans().GetPos();
+	SetAABB(); // ワールド座標の AABB を更新
 }
 
 // Transform基準のコライダーサイズ設定

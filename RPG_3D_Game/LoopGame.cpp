@@ -9,47 +9,47 @@
 #include "ColliderManager.h"
 #include "Transform.h"
 
-class Kumo
-{
-public:
-    int i; 
-    ColliderManager cm;
-    BoxCollider bColl;
-
-    Transform transform;
-
-    // Kumo ku;
-
-
-public:
-
-    Kumo(VECTOR pos, VECTOR rot, VECTOR scle)
-        : bColl(VGet(-100, 0, 0), VGet(100, 100, 100), &cm, true),
-        transform(VGet(0,0,0), VGet(0,0,0), VGet(1,1,1))
-    {
-        i = MV1LoadModel("C:/model/x/model.x");
-    }
-
-    void Update() 
-    {
-        DrawFormatString(0, 70, GetColor(255, 255, 255), "%d", MV1GetMaterialNum(i));
-        DrawFormatString(0, 85, GetColor(255, 255, 255), "%d", i);
-
-        MV1SetPosition(i, VGet(0, 0, 100));
-
-        MV1SetScale(i, transform.GetScale());
-
-        MV1SetRotationXYZ(i, transform.GetRot());
-
-        MV1SetPosition(i, transform.GetTrans());
-
-        MV1DrawModel(i);
-
-        bColl.DrawAABB();
-
-
-    }
-};
+//class Kumo
+//{
+//public:
+//    int i; 
+//    ColliderManager cm;
+//    BoxCollider bColl;
+//
+//    Transform transform;
+//
+//    // Kumo ku;
+//
+//
+//public:
+//
+//    Kumo(VECTOR pos, VECTOR rot, VECTOR scle)
+//        : bColl(/*ここにはboxColliderの分を書き込む*/),
+//        transform(VGet(0,0,0), VGet(0,0,0), VGet(1,1,1))
+//    {
+//        i = MV1LoadModel("C:/model/x/model.x");
+//    }
+//
+//    void Update() 
+//    {
+//        DrawFormatString(0, 70, GetColor(255, 255, 255), "%d", MV1GetMaterialNum(i));
+//        DrawFormatString(0, 85, GetColor(255, 255, 255), "%d", i);
+//
+//        MV1SetPosition(i, VGet(0, 0, 100));
+//
+//        MV1SetScale(i, transform.GetScale());
+//
+//        MV1SetRotationXYZ(i, transform.GetRot());
+//
+//        MV1SetPosition(i, transform.GetTrans());
+//
+//        MV1DrawModel(i);
+//
+//        bColl.DrawAABB();
+//
+//
+//    }
+//};
 
 // 初期化時などで一度呼ぶ(ライティング関係)
 void SetupDefaultLight()
@@ -140,7 +140,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // ~~~~~ てすと ~~~~~
     SetupDefaultLight(); // テスト
 
-    Kumo kumo(VGet(0,0,0), VGet(0,0,0), VGet(1, 1,1));
+    // Kumo kumo(VGet(0,0,0), VGet(0,0,0), VGet(1, 1,1));
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -157,7 +157,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         // ~~~~~~~ テスト　~~~~~~~~~
 
-        kumo.Update();
+        // kumo.Update();
 
         DrawGround(); // テスト
 

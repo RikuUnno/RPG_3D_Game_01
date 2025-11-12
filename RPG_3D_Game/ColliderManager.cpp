@@ -1,10 +1,12 @@
 ﻿#include "ColliderManager.h"
 
 ColliderManager::ColliderManager()
-{}
+{
+}
 
 ColliderManager::~ColliderManager()
-{}
+{
+}
 
 void ColliderManager::Update()
 {
@@ -18,7 +20,7 @@ void ColliderManager::AddCollider(Collider* collider)
 
 void ColliderManager::DeleteCollider(Collider* collider)
 {
-	std::erase_if(m_allColliders, [&](const auto& elem) { return elem == collider; });
+    std::erase_if(m_allColliders, [&](const auto& elem) { return elem == collider; });
 }
 
 void ColliderManager::HitJudgment()

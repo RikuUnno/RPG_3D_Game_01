@@ -14,6 +14,7 @@ enum class ColliderType		// Collider‚Ì•ª•Ê
 struct BoxType {            // AABBŒ“Box
 	VECTOR min;				// Å¬À•W
 	VECTOR max;				// Å‘åÀ•W
+	MATRIX rot;				// ‰ñ“]s—ñ
 }typedef AABB;
 
 struct SphereType           // ‹…    

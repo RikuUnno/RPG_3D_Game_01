@@ -13,7 +13,7 @@ class Collider
 	: public GameObject
 {
 protected: // オブジェクトの状態
-	GameObject gameobject;
+	GameObject gameObject;
 
 protected: // コライダーの種類に応じたPos用
 	ColliderType m_type;									// コライダーの種類

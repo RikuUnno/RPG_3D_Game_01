@@ -10,7 +10,7 @@ class CapsuleCollider
 private:
 
 public: // コンストラクタ
-	CapsuleCollider(VECTOR top, VECTOR bottom, double height, double radius, ColliderManager* manager, bool isActive);
+	CapsuleCollider(Transform transform, float height, float radius, ColliderManager* manager);
 	virtual ~CapsuleCollider();
 	CapsuleCollider(const CapsuleCollider& other);
 
