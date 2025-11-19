@@ -11,7 +11,8 @@ enum class ColliderType		// Colliderの分別
 							// etc...
 };
 
-struct BoxType {            // AABB兼Box
+struct BoxType				// AABB兼Box
+{            
 	VECTOR min;				// 最小座標
 	VECTOR max;				// 最大座標
 	MATRIX rot;				// 回転行列
@@ -29,4 +30,11 @@ struct CapsuleType			// カプセル
 	VECTOR posBottom;		// カプセルの下端
 	double height;			// カプセルの高さ
 	double radius;			// カプセルの半径
+};
+
+struct OBB 
+{
+	VECTOR center;			// 中心
+	VECTOR axes[3];			// 3軸（正規化済み）
+	float halfLen[3];		// 各軸方向の半長
 };

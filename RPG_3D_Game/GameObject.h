@@ -20,7 +20,7 @@ public:
 	bool IsActive() const { return m_isActive; }         // アクティブ状態を取得
 
 public:
-	Transform GetTrans() const; // Transformを返す
+	Transform* GetTrans(); // Transformのポインタを返す
 	void SetTransform(Transform trans); // Transformをセットする
 
 };

@@ -11,7 +11,7 @@ Collider::Collider(const std::variant<BoxType, SphereType, CapsuleType>& data, C
 	m_collisionMask = Layer::None;
 	m_tag = Tag::None;
 
-	gameObject.SetTransform(trans);
+	SetTransform(trans);
 
 	m_manager->AddCollider(this); // ColliderをManagerに追加
 
@@ -48,31 +48,39 @@ Collider::Collider(const Collider&)
 //
 //}
 
-// デバック用のAABBを線で表示
-void Collider::DrawAABB() const
+// デバック用のOBBを線で表示
+void Collider::DrawOBB() const
 {
 	int color = GetColor(255, 255, 255);
 
+	// 8 頂点計算
+	VECTOR c = obb.center;
+	VECTOR ax0 = VScale(obb.axes[0], obb.halfLen[0]);
+	VECTOR ax1 = VScale(obb.axes[1], obb.halfLen[1]);
+	VECTOR ax2 = VScale(obb.axes[2], obb.halfLen[2]);
+
 	VECTOR p[8] = {
-		VGet(aabb.min.x, aabb.min.y, aabb.min.z),
-		VGet(aabb.max.x, aabb.min.y, aabb.min.z),
-		VGet(aabb.max.x, aabb.max.y, aabb.min.z),
-		VGet(aabb.min.x, aabb.max.y, aabb.min.z),
-		VGet(aabb.min.x, aabb.min.y, aabb.max.z),
-		VGet(aabb.max.x, aabb.min.y, aabb.max.z),
-		VGet(aabb.max.x, aabb.max.y, aabb.max.z),
-		VGet(aabb.min.x, aabb.max.y, aabb.max.z)
+		VAdd(VAdd(VAdd(c, ax0), ax1), ax2),  // +x +y +z
+		VAdd(VAdd(VSub(c, ax0), ax1), ax2),  // -x +y +z
+		VAdd(VSub(VSub(c, ax0), ax1), ax2),  // -x -y +z
+		VAdd(VSub(VAdd(c, ax0), ax1), ax2),  // +x -y +z
+		VSub(VAdd(VAdd(c, ax0), ax1), ax2),  // +x +y -z
+		VSub(VAdd(VSub(c, ax0), ax1), ax2),  // -x +y -z
+		VSub(VSub(VSub(c, ax0), ax1), ax2),  // -x -y -z
+		VSub(VSub(VAdd(c, ax0), ax1), ax2)   // +x -y -z
 	};
 
-	// 線を描画
+	// 上下の面
 	DrawLine3D(p[0], p[1], color); DrawLine3D(p[1], p[2], color);
 	DrawLine3D(p[2], p[3], color); DrawLine3D(p[3], p[0], color);
+
 	DrawLine3D(p[4], p[5], color); DrawLine3D(p[5], p[6], color);
 	DrawLine3D(p[6], p[7], color); DrawLine3D(p[7], p[4], color);
+
+	// 側面
 	DrawLine3D(p[0], p[4], color); DrawLine3D(p[1], p[5], color);
 	DrawLine3D(p[2], p[6], color); DrawLine3D(p[3], p[7], color);
 }
-
 // イベントチェック
 void Collider::EventCheck(std::vector<Collider*>& colliders)
 {

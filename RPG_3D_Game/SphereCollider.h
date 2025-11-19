@@ -25,5 +25,8 @@ public: // ゲッターセッター
 	const SphereType* GetSphere() const override { return std::get_if<SphereType>(&m_data); } // SphereTypeのゲッター
 
 public: // 当たり判定関係
-	void SetAABB() override;
+	void SetOBB() override;
+
+public: // コライダーの可視化
+	void DrawCollider() const override;
 };

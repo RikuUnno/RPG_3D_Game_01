@@ -24,5 +24,8 @@ public: // ゲッターセッター
 	const BoxType* GetBox() const override { return std::get_if<BoxType>(&m_data); } // BoxTypeのゲッター
 
 public: // 当たり判定関係
-	void SetAABB() override;
+	void SetOBB() override;
+
+public: // コライダーの可視化
+	void DrawCollider() const override;
 };

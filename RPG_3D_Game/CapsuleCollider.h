@@ -24,5 +24,8 @@ public: // ゲッターセッター
 	const CapsuleType* GetCapsule() const override { return std::get_if<CapsuleType>(&m_data); } // CapsuleTypeのゲッター
 
 public: // 当たり判定関係
-	void SetAABB() override;
+	void SetOBB() override;
+
+public: // コライダーの可視化
+	void DrawCollider() const override;
 };

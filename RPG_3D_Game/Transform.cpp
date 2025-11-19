@@ -4,7 +4,7 @@ Transform::Transform()
 { 
 	// 初期値：原点・回転なし・等倍スケール
 	m_pos = VGet(0.0f, 0.0f, 0.0f);
-	m_rot   = VGet(0.0f, 0.0f, 0.0f);
+	m_rot   = VGet(0.0f, 0.0f, 0.0f);  // ラジアン
 	m_scale = VGet(1.0f, 1.0f, 1.0f);
 
 	// 各行列を単位行列で初期化
@@ -14,8 +14,8 @@ Transform::Transform()
 	m_worldMat	= MGetIdent();
 }
 
-Transform::Transform(VECTOR trans, VECTOR rot, VECTOR scale)
-	: m_pos(trans), m_rot(rot), m_scale(scale)
+Transform::Transform(VECTOR trans, VECTOR rotDeg, VECTOR scale) // rotDegは度数法
+	: m_pos(trans), m_rot(DegToRadV(rotDeg)), m_scale(scale)
 {
 	// 各行列を単位行列で初期化
 	m_matPos = MGetIdent();
@@ -31,6 +31,7 @@ Transform::~Transform()
 void Transform::LocalToWorld()
 {
 	UpdateMatrix();
+	// 親子関係を作ったらここに処理を書く
 }
 
 // ローカル行列を更新（スケール→回転→平行移動）
@@ -50,6 +51,15 @@ void Transform::UpdateMatrix()
 
 	// スケール → 回転 → 移動 の順に適用
 	m_worldMat = MMult(MMult(m_matScale, m_matRot), m_matPos);
+}
+
+
+float Transform::DegToRad(float deg) {
+	return deg * DX_PI / 180.0f;
+}
+
+VECTOR Transform::DegToRadV(const VECTOR& degV) {
+	return VGet(DegToRad(degV.x), DegToRad(degV.y), DegToRad(degV.z));
 }
 
 // ワールド座標を返す

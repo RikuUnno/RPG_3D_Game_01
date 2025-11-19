@@ -6,6 +6,8 @@
 #include "Player.h"
 
 #include "BoxCollider.h"
+#include "SphereCollider.h"
+#include "CapsuleCollider.h"
 #include "ColliderManager.h"
 #include "Transform.h"
 
@@ -41,7 +43,7 @@
 //
 //        MV1SetRotationXYZ(i, transform.GetRot());
 //
-//        MV1SetPosition(i, transform.GetTrans());
+//        MV1SetPosition(i, transform.m_transform);
 //
 //        MV1DrawModel(i);
 //
@@ -73,7 +75,7 @@ void SetupDefaultLight()
 // Y軸上向きの固定カメラを設定する
 void SetFixedCamera()
 {
-    VECTOR m_camPos = VGet(0.0f, 100.0f, -300.0f); // カメラ位置
+    VECTOR m_camPos = VGet(0.0f, 100.0f, -100.0f); // カメラ位置
     VECTOR m_target = VGet(0.0f, 0.0f, 0.0f);      // 注視点（原点を見る）
 
     SetCameraNearFar(0.1f, 1000.0f); // 視錐台の調整
@@ -137,6 +139,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     Player player;
 
+    ColliderManager cm1;
+
+    float setZrot = 45.0f;
+
+    Transform objTrans(VGet(0.0f, 30.0f, 0.0f), VGet(0.0f, 0.0f, setZrot), VGet(1.0f, 1.0f, 1.0f));
+
+    CapsuleCollider cap(objTrans, 30.0f, 5.0f, &cm1);
+    SphereCollider sphe(objTrans, 10.0f, &cm1);
+    BoxCollider box(objTrans, &cm1);
+
     // ~~~~~ てすと ~~~~~
     SetupDefaultLight(); // テスト
 
@@ -156,6 +168,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         time.Update();
 
         // ~~~~~~~ テスト　~~~~~~~~~
+        
+        cap.Update();
+        cap.DrawCollider();
+        cap.DrawOBB();
+
+        if (CheckHitKey(KEY_INPUT_A)) setZrot -= 0.1f;
+        else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.1f;
+
+        cap.GetTrans()->SetRot(VGet(0.0f, 0.0f, setZrot));
+
+
+
+        //box.DrawCollider();
+        //box.DrawOBB();
+
+        //sphe.DrawCollider();
+        //sphe.DrawOBB();
 
         // kumo.Update();
 
@@ -164,6 +193,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         SetFixedCamera(); // テスト
 
         DrawVectorLine(); // テスト
+
+        DrawFormatString(0, 30, GetColor(255, 255, 255), "SetZRot.%.2f", setZrot);
+
+        DrawFormatString(0, 15, GetColor(255, 255, 255), "Pos x.%.2f y.%.2f z.%.2f Rot x.%.2f y.%.2f z.%.2f Scl x.%.2f y.%.2f z.%.2f",
+            cap.GetTrans()->GetPos().x, cap.GetTrans()->GetPos().y, cap.GetTrans()->GetPos().z,
+            cap.GetTrans()->GetRot().x, cap.GetTrans()->GetRot().y, cap.GetTrans()->GetRot().z,
+            cap.GetTrans()->GetScale().x, cap.GetTrans()->GetScale().y, cap.GetTrans()->GetScale().z);
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~
     

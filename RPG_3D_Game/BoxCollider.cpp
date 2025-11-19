@@ -23,7 +23,7 @@ BoxCollider::BoxCollider(Transform transform, ColliderManager* manager)
 	return b;
 		}(), manager, transform)
 {
-	SetAABB(); // 回転を考慮したAABB
+	SetOBB(); // 回転を考慮したAABB
 }
 
 // デストラクタ
@@ -40,10 +40,10 @@ BoxCollider::BoxCollider(const BoxCollider& other)
 			return b;
 		}(),
 			other.m_manager,
-			other.gameObject.GetTrans() // Transformをコピー
+			other.m_transform // Transformをコピー
 			)
 {
-	SetAABB(); // AABBを再計算
+	SetOBB(); // AABBを再計算
 
 #ifdef _DEBUG
 	MessageBoxW(
@@ -68,39 +68,71 @@ void BoxCollider::SetTrans()
 }
 
 // AABBの設定
-void BoxCollider::SetAABB()
+void BoxCollider::SetOBB()
 {
 	const BoxType& b = std::get<BoxType>(m_data);
 
+	// 中心と半サイズ
 	VECTOR center = VScale(VAdd(b.min, b.max), 0.5f);
 	VECTOR halfSize = VScale(VSub(b.max, b.min), 0.5f);
 
-	VECTOR local[8] = {
-		VGet(-halfSize.x, -halfSize.y, -halfSize.z),
-		VGet(halfSize.x, -halfSize.y, -halfSize.z),
-		VGet(halfSize.x,  halfSize.y, -halfSize.z),
-		VGet(-halfSize.x,  halfSize.y, -halfSize.z),
-		VGet(-halfSize.x, -halfSize.y,  halfSize.z),
-		VGet(halfSize.x, -halfSize.y,  halfSize.z),
-		VGet(halfSize.x,  halfSize.y,  halfSize.z),
-		VGet(-halfSize.x,  halfSize.y,  halfSize.z)
-	};
+	// 回転行列から 3軸を取得
+	// b.rot は 3x3 行列相当と仮定
+	obb.center = center;
+	obb.axes[0] = VNorm(VTransform(VGet(1, 0, 0), b.rot)); // X軸
+	obb.axes[1] = VNorm(VTransform(VGet(0, 1, 0), b.rot)); // Y軸
+	obb.axes[2] = VNorm(VTransform(VGet(0, 0, 1), b.rot)); // Z軸
 
-	VECTOR worldMin = VGet(FLT_MAX, FLT_MAX, FLT_MAX);
-	VECTOR worldMax = VGet(-FLT_MAX, -FLT_MAX, -FLT_MAX);
-
-	for (int i = 0; i < 8; ++i)
-	{
-		VECTOR w = VAdd(VTransform(local[i], b.rot), center);
-		worldMin.x = fminf(worldMin.x, w.x);
-		worldMin.y = fminf(worldMin.y, w.y);
-		worldMin.z = fminf(worldMin.z, w.z);
-		worldMax.x = fmaxf(worldMax.x, w.x);
-		worldMax.y = fmaxf(worldMax.y, w.y);
-		worldMax.z = fmaxf(worldMax.z, w.z);
-	}
-
-	aabb.min = worldMin;
-	aabb.max = worldMax;
+	obb.halfLen[0] = halfSize.x;
+	obb.halfLen[1] = halfSize.y;
+	obb.halfLen[2] = halfSize.z;
 }
 
+// コライダーの可視化
+void BoxCollider::DrawCollider() const
+{
+	const BoxType& b = std::get<BoxType>(m_data);
+
+	// AABB の min / max
+	const VECTOR& mn = b.min;
+	const VECTOR& mx = b.max;
+
+	// 8つの頂点
+	VECTOR v[8] = {
+		VGet(mn.x, mn.y, mn.z),  // 0
+		VGet(mx.x, mn.y, mn.z),  // 1
+		VGet(mx.x, mx.y, mn.z),  // 2
+		VGet(mn.x, mx.y, mn.z),  // 3
+
+		VGet(mn.x, mn.y, mx.z),  // 4
+		VGet(mx.x, mn.y, mx.z),  // 5
+		VGet(mx.x, mx.y, mx.z),  // 6
+		VGet(mn.x, mx.y, mx.z)   // 7
+	};
+
+	int col = GetColor(0, 255, 0);
+
+	// 前面（Z-）
+	DrawTriangle3D(v[0], v[1], v[2], col, TRUE);
+	DrawTriangle3D(v[0], v[2], v[3], col, TRUE);
+
+	// 背面（Z+）
+	DrawTriangle3D(v[4], v[6], v[5], col, TRUE);
+	DrawTriangle3D(v[4], v[7], v[6], col, TRUE);
+
+	// 左面（X-）
+	DrawTriangle3D(v[0], v[3], v[7], col, TRUE);
+	DrawTriangle3D(v[0], v[7], v[4], col, TRUE);
+
+	// 右面（X+）
+	DrawTriangle3D(v[1], v[5], v[6], col, TRUE);
+	DrawTriangle3D(v[1], v[6], v[2], col, TRUE);
+
+	// 上面（Y+）
+	DrawTriangle3D(v[3], v[2], v[6], col, TRUE);
+	DrawTriangle3D(v[3], v[6], v[7], col, TRUE);
+
+	// 下面（Y-）
+	DrawTriangle3D(v[0], v[4], v[5], col, TRUE);
+	DrawTriangle3D(v[0], v[5], v[1], col, TRUE);
+}

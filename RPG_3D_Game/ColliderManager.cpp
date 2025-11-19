@@ -64,14 +64,14 @@ void ColliderManager::BroadPhase()
         Collider* b = pair.second;
 
         // AABB を取得
-        AABB aAABB = *a->GetAABB();
-        AABB bAABB = *b->GetAABB();
+        //AABB aAABB = *a->GetAABB();
+        //AABB bAABB = *b->GetAABB();
 
-        if (CheckAABB(aAABB, bAABB))
-        {
-            // AABB が重なっていれば NarrowPhase へ
-            m_broadPhasePairs.emplace_back(a, b);
-        }
+        //if (CheckAABB(aAABB, bAABB))
+        //{
+        //    // AABB が重なっていれば NarrowPhase へ
+        //    m_broadPhasePairs.emplace_back(a, b);
+        //}
     }
 }
 

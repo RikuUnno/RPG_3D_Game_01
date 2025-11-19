@@ -13,9 +13,9 @@ GameObject::~GameObject()
 
 }
 
-Transform GameObject::GetTrans() const
+Transform* GameObject::GetTrans()
 {
-	return m_transform;
+	return &m_transform;
 }
 
 void GameObject::SetTransform(Transform trans)

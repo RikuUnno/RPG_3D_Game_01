@@ -36,7 +36,7 @@ CapsuleCollider::CapsuleCollider(Transform transform, float height, float radius
             manager,
             transform)
 {
-    SetAABB(); // AABB設定
+    SetOBB(); // AABB設定
 }
 
 // デストラクタ
@@ -50,7 +50,7 @@ CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
             CapsuleType c;
 
             // --- Transformの回転を考慮して上下方向を再計算 ---
-            Transform transform = other.GetTrans();  // ← Transformを取得
+            Transform transform = other.m_transform;  // ← Transformを取得
             float height = other.GetCapsule()->height;
             float radius = other.GetCapsule()->radius;
 
@@ -74,10 +74,10 @@ CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
             return c;
         }(),
         other.m_manager,
-        other.GetTrans() // Transformのコピー
+        other.m_transform // Transformのコピー
             )
 {
-    SetAABB(); // コピー後にAABBを再設定
+    SetOBB(); // コピー後にAABBを再設定
 
 #ifdef _DEBUG
     MessageBoxW(
@@ -92,70 +92,72 @@ CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
 // Update
 void CapsuleCollider::Update()
 {
-
+    SetTrans();
+    SetOBB();
 }
 
 // Transform基準のコライダーサイズ設定
 void CapsuleCollider::SetTrans()
 {
+    // Transform をワールド行列まで更新
+    m_transform.LocalToWorld();
 
+    // CapsuleType を Transform に基づいて更新
+    CapsuleType& cap = std::get<CapsuleType>(m_data);
+
+    VECTOR center = m_transform.GetPos();
+    VECTOR rot = m_transform.GetRot(); // ラジアン
+    VECTOR scale = m_transform.GetScale();
+
+    // 回転行列
+    MATRIX rotX = MGetRotX(rot.x);
+    MATRIX rotY = MGetRotY(rot.y);
+    MATRIX rotZ = MGetRotZ(rot.z);
+    MATRIX rotMat = MMult(MMult(rotX, rotY), rotZ);
+
+    // Y軸方向を Transform に沿わせる
+    VECTOR upDir = VTransform(VGet(0, 1, 0), rotMat);
+
+    // スケールを反映した半高さ
+    float halfHeight = (cap.height * scale.y) * 0.5f;
+
+    cap.posTop = VAdd(center, VScale(upDir, halfHeight));
+    cap.posBottom = VAdd(center, VScale(upDir, -halfHeight));
 }
 
-void CapsuleCollider::SetAABB()
+void CapsuleCollider::SetOBB()
 {
     const CapsuleType& cap = std::get<CapsuleType>(m_data);
 
-    // 中心線ベクトル
     VECTOR line = VSub(cap.posTop, cap.posBottom);
     float halfLen = 0.5f * VSize(line);
+
+    // 半径分を足して全体の長さに
+    halfLen += cap.radius;
+
     VECTOR center = VScale(VAdd(cap.posTop, cap.posBottom), 0.5f);
 
-    // カプセルの回転行列を計算（中心線の向きに沿うZ軸回転などを作る）
-    // 今回は簡易化して、中心線を単純な回転とみなす
+    // 長さ方向
     VECTOR dir = VNorm(line);
 
-    // 3軸方向ベクトル（dir軸を中心に考える）
-    VECTOR axes[3] = {
-        VGet(1,0,0),  // X
-        VGet(0,1,0),  // Y
-        VGet(0,0,1)   // Z
-    };
+    // 任意の垂直ベクトルを作る
+    VECTOR up = VGet(0, 1, 0);
+    if (fabs(VDot(dir, up)) > 0.999f) up = VGet(1, 0, 0); // 並行なら切り替え
 
-    VECTOR worldMin = VGet(FLT_MAX, FLT_MAX, FLT_MAX);
-    VECTOR worldMax = VGet(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+    VECTOR right = VNorm(VCross(up, dir));
+    VECTOR forward = VCross(dir, right);
 
-    // カプセルを長方体で包むイメージでAABB計算
-    for (int i = 0; i < 3; i++) {
-        VECTOR axis = axes[i];
-        // 回転ベクトルも考慮（capsule自体がTransform回転している場合）
-        // ここでは posTop/posBottom は既に回転済みなので、半径分を各方向に加える
-        float r = cap.radius;
-        worldMin.x = fmin(worldMin.x, center.x - r);
-        worldMin.y = fmin(worldMin.y, center.y - r);
-        worldMin.z = fmin(worldMin.z, center.z - r);
+    // OBB に保存
+    obb.center = center;
+    obb.axes[0] = dir;       obb.halfLen[0] = halfLen;
+    obb.axes[1] = right;     obb.halfLen[1] = cap.radius;
+    obb.axes[2] = forward;   obb.halfLen[2] = cap.radius;
+}
 
-        worldMax.x = fmax(worldMax.x, center.x + r);
-        worldMax.y = fmax(worldMax.y, center.y + r);
-        worldMax.z = fmax(worldMax.z, center.z + r);
-    }
+// コライダーの可視化
+void CapsuleCollider::DrawCollider() const
+{
+    const CapsuleType& cap = std::get<CapsuleType>(m_data);
 
-    // カプセルの長さ方向も加味
-    worldMin.x = fmin(worldMin.x, cap.posTop.x);
-    worldMin.y = fmin(worldMin.y, cap.posTop.y);
-    worldMin.z = fmin(worldMin.z, cap.posTop.z);
-
-    worldMin.x = fmin(worldMin.x, cap.posBottom.x);
-    worldMin.y = fmin(worldMin.y, cap.posBottom.y);
-    worldMin.z = fmin(worldMin.z, cap.posBottom.z);
-
-    worldMax.x = fmax(worldMax.x, cap.posTop.x);
-    worldMax.y = fmax(worldMax.y, cap.posTop.y);
-    worldMax.z = fmax(worldMax.z, cap.posTop.z);
-
-    worldMax.x = fmax(worldMax.x, cap.posBottom.x);
-    worldMax.y = fmax(worldMax.y, cap.posBottom.y);
-    worldMax.z = fmax(worldMax.z, cap.posBottom.z);
-
-    aabb.min = worldMin;
-    aabb.max = worldMax;
+    DrawCapsule3D(cap.posTop, cap.posBottom, cap.radius, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), TRUE);
 }

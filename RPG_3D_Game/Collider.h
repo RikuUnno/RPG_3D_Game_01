@@ -12,15 +12,12 @@ class ColliderManager;
 class Collider
 	: public GameObject
 {
-protected: // オブジェクトの状態
-	GameObject gameObject;
-
 protected: // コライダーの種類に応じたPos用
 	ColliderType m_type;									// コライダーの種類
 	std::variant<BoxType, SphereType, CapsuleType> m_data;	// 上記の変数に応じたコライダーのPos
 
 protected: // 簡易的な当たり判定用
-	AABB aabb;	// 当たり判定用
+	OBB obb;	// 当たり判定用
 
 protected: // 当たり判定後のイベントチェック用変数
 	std::vector<Collider*>previousHitColliders; //前（処理中のフレーム）の当たったCollider
@@ -66,15 +63,16 @@ public: // Posゲッター
 	virtual const SphereType* GetSphere() const { return nullptr; }
 	virtual const CapsuleType* GetCapsule() const { return nullptr; }
 
-	const AABB* GetAABB() const { return &aabb; }
+	const OBB* Getobb() const { return &obb; }
 
 public: // 状態設定
 	void SetActiveCollider(bool active) { m_isActive = active; } // 状態の設定
 
 public: // 当たり判定の応答
-	virtual void SetAABB() = 0; // AABBの設定
+	virtual void SetOBB() = 0; // AABBの設定
 
-	void DrawAABB() const; // AABBの可視化（デバッグ用）
+	void DrawOBB() const; // OBBの可視化（デバッグ用）
+	virtual void DrawCollider() const = 0; // コライダーの可視化
 
 	// イベントチェック
 	void EventCheck(std::vector<Collider*> &colliders);
