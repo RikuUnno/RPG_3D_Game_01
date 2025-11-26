@@ -22,6 +22,10 @@ struct SphereType           // 球
 {
 	VECTOR spherePos;		// 球の中心点
 	double radius;			// 円の半径
+	// 回転対応用の軸
+	VECTOR axisX = VGet(1, 0, 0);
+	VECTOR axisY = VGet(0, 1, 0);
+	VECTOR axisZ = VGet(0, 0, 1);
 };
 
 struct CapsuleType			// カプセル

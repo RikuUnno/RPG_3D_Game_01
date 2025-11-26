@@ -54,10 +54,8 @@ void SphereCollider::Update()
 	SetOBB(); // ワールド座標の AABB を更新
 }
 
-// Transform基準のコライダーサイズ設定
 void SphereCollider::SetTrans()
 {
-	// Transform をワールドまで更新
 	m_transform.LocalToWorld();
 
 	SphereType& sph = std::get<SphereType>(m_data);
@@ -65,26 +63,35 @@ void SphereCollider::SetTrans()
 	VECTOR center = m_transform.GetPos();
 	VECTOR scale = m_transform.GetScale();
 
-	// X/Y/Z の平均スケールを使って radius を調整
+	// X/Y/Z の平均スケールで radius を調整
 	float scaleAvg = (scale.x + scale.y + scale.z) / 3.0f;
-
 	sph.spherePos = center;
 	sph.radius = m_originalRadius * scaleAvg;
+
+	// 回転を取得（ラジアン）
+	VECTOR rot = m_transform.GetRot();
+
+	// 回転行列作成
+	MATRIX rotX = MGetRotX(rot.x);
+	MATRIX rotY = MGetRotY(rot.y);
+	MATRIX rotZ = MGetRotZ(rot.z);
+	MATRIX rotMat = MMult(MMult(rotX, rotY), rotZ);
+
+	// 描画やOBB用に軸を計算
+	sph.axisX = VTransform(VGet(1, 0, 0), rotMat);
+	sph.axisY = VTransform(VGet(0, 1, 0), rotMat);
+	sph.axisZ = VTransform(VGet(0, 0, 1), rotMat);
 }
 
-// OBB 設定
 void SphereCollider::SetOBB()
 {
 	const SphereType& s = std::get<SphereType>(m_data);
 
 	obb.center = s.spherePos;
+	obb.axes[0] = s.axisX; // Transform の回転に対応
+	obb.axes[1] = s.axisY;
+	obb.axes[2] = s.axisZ;
 
-	// 球は回転しても形が変わらないので軸は単純
-	obb.axes[0] = VGet(1, 0, 0); // X軸
-	obb.axes[1] = VGet(0, 1, 0); // Y軸
-	obb.axes[2] = VGet(0, 0, 1); // Z軸
-
-	// 半長はすべて半径
 	obb.halfLen[0] = s.radius;
 	obb.halfLen[1] = s.radius;
 	obb.halfLen[2] = s.radius;

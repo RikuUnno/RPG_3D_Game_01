@@ -176,20 +176,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.3f; // 右回転
 
         // 現在の回転を取得
-        VECTOR rot = cap.GetTrans()->GetRot();
+        VECTOR rot = sphe.GetTrans()->GetRot();
 
         // Z軸だけ更新（setZrot は度をラジアンに変換しておく）
-        rot.z = cap.GetTrans()->DegToRad(setZrot);
-        rot.x = cap.GetTrans()->DegToRad(setZrot);
+        rot.z = sphe.GetTrans()->DegToRad(setZrot);
+        rot.x = sphe.GetTrans()->DegToRad(setZrot);
 
         // Transform に反映
-        cap.GetTrans()->SetRotRad(rot);
+        sphe.GetTrans()->SetRotRad(rot);
 
         // Capsule のコライダーにも反映
-        cap.Update();
+        sphe.Update();
 
-        cap.DrawCollider();
-        cap.DrawOBB();
+        sphe.DrawCollider();
+        sphe.DrawOBB();
 
 
         //box.DrawCollider();
@@ -209,9 +209,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         DrawFormatString(0, 30, GetColor(255, 255, 255), "SetZRot.%.2f", setZrot);
 
         DrawFormatString(0, 15, GetColor(255, 255, 255), "Pos x.%.2f y.%.2f z.%.2f Rot x.%.2f y.%.2f z.%.2f Scl x.%.2f y.%.2f z.%.2f",
-            cap.GetTrans()->GetPos().x, cap.GetTrans()->GetPos().y, cap.GetTrans()->GetPos().z,
-            cap.GetTrans()->GetRot().x, cap.GetTrans()->GetRot().y, cap.GetTrans()->GetRot().z,
-            cap.GetTrans()->GetScale().x, cap.GetTrans()->GetScale().y, cap.GetTrans()->GetScale().z);
+            sphe.GetTrans()->GetPos().x, sphe.GetTrans()->GetPos().y, sphe.GetTrans()->GetPos().z,
+            sphe.GetTrans()->GetRot().x, sphe.GetTrans()->GetRot().y, sphe.GetTrans()->GetRot().z,
+            sphe.GetTrans()->GetScale().x, sphe.GetTrans()->GetScale().y, sphe.GetTrans()->GetScale().z);
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~
     

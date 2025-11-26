@@ -157,7 +157,6 @@ void CapsuleCollider::SetOBB()
     obb.axes[2] = forward;   obb.halfLen[2] = cap.radius;
 }
 
-
 // コライダーの可視化
 void CapsuleCollider::DrawCollider() const
 {
