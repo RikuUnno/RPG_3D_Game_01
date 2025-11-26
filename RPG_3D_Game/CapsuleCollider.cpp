@@ -100,10 +100,9 @@ void CapsuleCollider::Update()
 // Transform基準のコライダーサイズ設定
 void CapsuleCollider::SetTrans()
 {
-    // Transform をワールド行列まで更新
+    // Transform をワールドまで更新
     m_transform.LocalToWorld();
 
-    // CapsuleType を Transform に基づいて更新
     CapsuleType& cap = std::get<CapsuleType>(m_data);
 
     VECTOR center = m_transform.GetPos();
@@ -116,36 +115,33 @@ void CapsuleCollider::SetTrans()
     MATRIX rotZ = MGetRotZ(rot.z);
     MATRIX rotMat = MMult(MMult(rotX, rotY), rotZ);
 
-    // XZの平均スケールを adiusに反映
-    float sx = scale.x;
-    float sz = scale.z;
-    float scaleXZ = (sx + sz) * 0.5f;     // 平均スケール
+    // XZの平均スケールを radius に反映
+    float scaleXZ = (scale.x + scale.z) * 0.5f;
     cap.radius = m_originalRadius * scaleXZ;
 
-    // Y軸方向を Transform に沿わせる
+    // 長軸方向（TransformのY方向）を回転行列から取得
     VECTOR upDir = VTransform(VGet(0, 1, 0), rotMat);
 
-    // スケールを反映した半高さ
+    // 半高さをスケール反映
     float halfHeight = (cap.height * scale.y) * 0.5f;
 
+    // 上端・下端座標
     cap.posTop = VAdd(center, VScale(upDir, halfHeight));
     cap.posBottom = VAdd(center, VScale(upDir, -halfHeight));
 }
 
+// OBB更新（長軸自由）
 void CapsuleCollider::SetOBB()
 {
     const CapsuleType& cap = std::get<CapsuleType>(m_data);
 
     VECTOR line = VSub(cap.posTop, cap.posBottom);
-    float halfLen = 0.5f * VSize(line);
-
-    // 半径分を足して全体の長さに
-    halfLen += cap.radius;
+    float halfLen = 0.5f * VSize(line); // 長軸方向の半分
+    halfLen += cap.radius;               // 半径分を足す
 
     VECTOR center = VScale(VAdd(cap.posTop, cap.posBottom), 0.5f);
 
-    // 長さ方向
-    VECTOR dir = VNorm(line);
+    VECTOR dir = VNorm(line); // 長軸方向
 
     // 任意の垂直ベクトルを作る
     VECTOR up = VGet(0, 1, 0);
@@ -160,6 +156,7 @@ void CapsuleCollider::SetOBB()
     obb.axes[1] = right;     obb.halfLen[1] = cap.radius;
     obb.axes[2] = forward;   obb.halfLen[2] = cap.radius;
 }
+
 
 // コライダーの可視化
 void CapsuleCollider::DrawCollider() const

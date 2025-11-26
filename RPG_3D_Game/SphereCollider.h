@@ -9,6 +9,7 @@ class SphereCollider
 	: public Collider
 {
 private:
+	float m_originalRadius;   // スケール前の半径
 
 public: // コライダー関係
 	SphereCollider(Transform transform, float radius, ColliderManager* manager);

@@ -42,7 +42,7 @@ private: // 変換
 	void UpdateMatrix(); // ローカル行列を更新（スケール→回転→平行移動）
 public: // 更新とローカル→ワールドの関数
 	void LocalToWorld(); // ローカル座標からワールド行列を作成
-private:
+	
 	float DegToRad(float deg);
 	VECTOR DegToRadV(const VECTOR& degV);
 public: // ワールド座標を返す

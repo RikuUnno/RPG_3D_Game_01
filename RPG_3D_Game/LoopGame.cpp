@@ -143,8 +143,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     float setZrot = 45.0f;
 
-    Transform objTrans(VGet(0.0f, 30.0f, 0.0f), VGet(0.0f, 0.0f, setZrot), VGet(1.0f, 1.0f, 1.0f));
-
+    Transform objTrans(VGet(0.0f, 30.0f, 0.0f), VGet(0.0f, 0.0f, 0.0f), VGet(1.0f, 1.0f, 1.0f));
+   
     CapsuleCollider cap(objTrans, 30.0f, 5.0f, &cm1);
     SphereCollider sphe(objTrans, 10.0f, &cm1);
     BoxCollider box(objTrans, &cm1);
@@ -169,14 +169,28 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         // ~~~~~~~ テスト　~~~~~~~~~
         
+
+
+        // キー入力でZ回転を調整
+        if (CheckHitKey(KEY_INPUT_A)) setZrot -= 0.3f; // 左回転
+        else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.3f; // 右回転
+
+        // 現在の回転を取得
+        VECTOR rot = cap.GetTrans()->GetRot();
+
+        // Z軸だけ更新（setZrot は度をラジアンに変換しておく）
+        rot.z = cap.GetTrans()->DegToRad(setZrot);
+        rot.x = cap.GetTrans()->DegToRad(setZrot);
+
+        // Transform に反映
+        cap.GetTrans()->SetRotRad(rot);
+
+        // Capsule のコライダーにも反映
         cap.Update();
+
         cap.DrawCollider();
         cap.DrawOBB();
 
-        if (CheckHitKey(KEY_INPUT_A)) setZrot -= 0.1f;
-        else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.1f;
-
-        cap.GetTrans()->SetRotDeg(VGet(0.0f, 0.0f, setZrot));
 
         //box.DrawCollider();
         //box.DrawOBB();

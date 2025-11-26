@@ -11,7 +11,8 @@ SphereCollider::SphereCollider(Transform transform, float radius, ColliderManage
 			return s;
 		}(),
 	manager,
-	transform)
+	transform),
+	m_originalRadius(radius)
 {
 	SetOBB(); // AABBの設定
 }
@@ -30,8 +31,8 @@ SphereCollider::SphereCollider(const SphereCollider& other)
 			return s;
 		}(),
 			other.m_manager,
-			other.m_transform // Transformをそのままコピー
-			)
+			other.m_transform), // Transformをそのままコピー
+			m_originalRadius(other.m_originalRadius)
 {
 
 	SetOBB(); // AABBの再設定
@@ -49,17 +50,29 @@ SphereCollider::SphereCollider(const SphereCollider& other)
 // Update
 void SphereCollider::Update()
 {
-	// Transform の位置を反映
-	std::get<SphereType>(m_data).spherePos = m_transform.GetPos();
+	SetTrans(); // Transform基準のコライダーサイズ設定
 	SetOBB(); // ワールド座標の AABB を更新
 }
 
 // Transform基準のコライダーサイズ設定
 void SphereCollider::SetTrans()
 {
+	// Transform をワールドまで更新
+	m_transform.LocalToWorld();
 
+	SphereType& sph = std::get<SphereType>(m_data);
+
+	VECTOR center = m_transform.GetPos();
+	VECTOR scale = m_transform.GetScale();
+
+	// X/Y/Z の平均スケールを使って radius を調整
+	float scaleAvg = (scale.x + scale.y + scale.z) / 3.0f;
+
+	sph.spherePos = center;
+	sph.radius = m_originalRadius * scaleAvg;
 }
 
+// OBB 設定
 void SphereCollider::SetOBB()
 {
 	const SphereType& s = std::get<SphereType>(m_data);
@@ -76,6 +89,7 @@ void SphereCollider::SetOBB()
 	obb.halfLen[1] = s.radius;
 	obb.halfLen[2] = s.radius;
 }
+
 // コライダーの可視化
 void SphereCollider::DrawCollider() const
 {
