@@ -132,27 +132,26 @@ void BoxCollider::DrawCollider() const
 {
 	const BoxType& b = std::get<BoxType>(m_data);
 
-	// AABB の min/max
-	const VECTOR& mn = b.min;
-	const VECTOR& mx = b.max;
+	// Box の中心
+	VECTOR center = VScale(VAdd(b.min, b.max), 0.5f);
 
-	// 8つの頂点（ローカル座標）
-	VECTOR v[8] = {
-		VGet(mn.x, mn.y, mn.z),
-		VGet(mx.x, mn.y, mn.z),
-		VGet(mx.x, mx.y, mn.z),
-		VGet(mn.x, mx.y, mn.z),
-		VGet(mn.x, mn.y, mx.z),
-		VGet(mx.x, mn.y, mx.z),
-		VGet(mx.x, mx.y, mx.z),
-		VGet(mn.x, mx.y, mx.z)
+	// 8つの頂点（中心を原点にしたローカル座標）
+	VECTOR local[8] = {
+		VSub(VGet(b.min.x, b.min.y, b.min.z), center),
+		VSub(VGet(b.max.x, b.min.y, b.min.z), center),
+		VSub(VGet(b.max.x, b.max.y, b.min.z), center),
+		VSub(VGet(b.min.x, b.max.y, b.min.z), center),
+		VSub(VGet(b.min.x, b.min.y, b.max.z), center),
+		VSub(VGet(b.max.x, b.min.y, b.max.z), center),
+		VSub(VGet(b.max.x, b.max.y, b.max.z), center),
+		VSub(VGet(b.min.x, b.max.y, b.max.z), center)
 	};
 
-	// 回転行列を適用（ワールド回転を反映）
+	// 回転を適用
+	VECTOR v[8];
 	for (int i = 0; i < 8; ++i)
 	{
-		VECTOR center = VScale(VAdd(mn, mx), 0.5f); // 中心
-		v[i] = VAdd(VTransform(VSub(v[i], center), b.rot), center);
+		v[i] = VAdd(VTransform(local[i], b.rot), center);
 	}
 
 	int col = GetColor(0, 255, 0);
