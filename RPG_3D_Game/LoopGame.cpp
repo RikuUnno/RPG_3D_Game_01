@@ -141,13 +141,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     ColliderManager cm1;
 
-    float setZrot = 45.0f;
+    float setZrot = 0.0f;
 
-    Transform objTrans(VGet(0.0f, 30.0f, 0.0f), VGet(0.0f, 0.0f, 0.0f), VGet(1.0f, 1.0f, 1.0f));
+    Transform objTrans(VGet(0.0f, 30.0f, 0.0f), VGet(0.0f, 0.0f, 0.0f), VGet(3.0f, 2.0f, 6.0f));
    
     CapsuleCollider cap(objTrans, 30.0f, 5.0f, &cm1);
     SphereCollider sphe(objTrans, 10.0f, &cm1);
-    BoxCollider box(objTrans, &cm1);
+    BoxCollider box(objTrans, 10.0f, &cm1);
 
     // ~~~~~ てすと ~~~~~
     SetupDefaultLight(); // テスト
@@ -176,27 +176,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.3f; // 右回転
 
         // 現在の回転を取得
-        VECTOR rot = sphe.GetTrans()->GetRot();
+        VECTOR rot = box.GetTrans()->GetRot();
 
         // Z軸だけ更新（setZrot は度をラジアンに変換しておく）
-        rot.z = sphe.GetTrans()->DegToRad(setZrot);
-        rot.x = sphe.GetTrans()->DegToRad(setZrot);
+        rot.z = box.GetTrans()->DegToRad(setZrot);
+        rot.x = box.GetTrans()->DegToRad(setZrot);
 
         // Transform に反映
-        sphe.GetTrans()->SetRotRad(rot);
+        box.GetTrans()->SetRotRad(rot);
 
         // Capsule のコライダーにも反映
-        sphe.Update();
+        box.Update();
 
-        sphe.DrawCollider();
-        sphe.DrawOBB();
+        box.DrawCollider();
+        box.DrawOBB();
 
 
         //box.DrawCollider();
         //box.DrawOBB();
 
-        //sphe.DrawCollider();
-        //sphe.DrawOBB();
+        //box.DrawCollider();
+        //box.DrawOBB();
 
         // kumo.Update();
 
@@ -209,9 +209,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         DrawFormatString(0, 30, GetColor(255, 255, 255), "SetZRot.%.2f", setZrot);
 
         DrawFormatString(0, 15, GetColor(255, 255, 255), "Pos x.%.2f y.%.2f z.%.2f Rot x.%.2f y.%.2f z.%.2f Scl x.%.2f y.%.2f z.%.2f",
-            sphe.GetTrans()->GetPos().x, sphe.GetTrans()->GetPos().y, sphe.GetTrans()->GetPos().z,
-            sphe.GetTrans()->GetRot().x, sphe.GetTrans()->GetRot().y, sphe.GetTrans()->GetRot().z,
-            sphe.GetTrans()->GetScale().x, sphe.GetTrans()->GetScale().y, sphe.GetTrans()->GetScale().z);
+            box.GetTrans()->GetPos().x, box.GetTrans()->GetPos().y, box.GetTrans()->GetPos().z,
+            box.GetTrans()->GetRot().x, box.GetTrans()->GetRot().y, box.GetTrans()->GetRot().z,
+            box.GetTrans()->GetScale().x, box.GetTrans()->GetScale().y, box.GetTrans()->GetScale().z);
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~
     

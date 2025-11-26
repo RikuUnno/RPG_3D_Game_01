@@ -3,7 +3,7 @@
 #include <variant>
 
 // コンストラクタ
-BoxCollider::BoxCollider(Transform transform, ColliderManager* manager)
+BoxCollider::BoxCollider(Transform transform, float boxSize, ColliderManager* manager)
 	: Collider([transform]() {
 	BoxType b;
 
@@ -21,7 +21,10 @@ BoxCollider::BoxCollider(Transform transform, ColliderManager* manager)
 	b.rot = MMult(MMult(rotZ, rotX), rotY);
 
 	return b;
-		}(), manager, transform)
+		}(),
+	manager,
+	transform),
+	m_originalSize(boxSize)
 {
 	SetOBB(); // 回転を考慮したAABB
 }
@@ -40,8 +43,8 @@ BoxCollider::BoxCollider(const BoxCollider& other)
 			return b;
 		}(),
 			other.m_manager,
-			other.m_transform // Transformをコピー
-			)
+			other.m_transform), // Transformをコピー
+			m_originalSize(other.m_originalSize)
 {
 	SetOBB(); // AABBを再計算
 
@@ -58,13 +61,49 @@ BoxCollider::BoxCollider(const BoxCollider& other)
 // Update
 void BoxCollider::Update()
 {
-
+	SetTrans();
+	SetOBB();   // OBB 計算
 }
 
 // Transform基準のコライダーサイズ設定
 void BoxCollider::SetTrans()
 {
+	// ワールド行列まで更新
+	m_transform.LocalToWorld();
 
+	BoxType& box = std::get<BoxType>(m_data);
+
+	// Transform の座標・回転・スケールを取得
+	VECTOR pos = m_transform.GetPos();
+	VECTOR rot = m_transform.GetRot();    // ラジアン
+	VECTOR scale = m_transform.GetScale();
+
+	// 回転行列を作成（X→Y→Z の順）
+	MATRIX rotX = MGetRotX(rot.x);
+	MATRIX rotY = MGetRotY(rot.y);
+	MATRIX rotZ = MGetRotZ(rot.z);
+	MATRIX rotMat = MMult(MMult(rotX, rotY), rotZ);
+
+	// ラムダで VECTOR 同士の要素ごとのスケーリング
+	auto VScaleV = [](const VECTOR& v1, const VECTOR& v2) -> VECTOR {
+		return VGet(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+		};
+
+	// originalSize を VECTOR に変換
+	VECTOR originalVec = VGet(m_originalSize, m_originalSize, m_originalSize);
+
+	// 半サイズをラムダで計算（スケール反映 + 半分）
+	VECTOR halfSize = [&]() -> VECTOR {
+		VECTOR scaled = VScaleV(originalVec, scale); // スケールを反映
+		return VScale(scaled, 0.5f);                // 半分にする
+		}();
+
+	// Box の min/max を Transform 中心を基準に計算
+	box.min = VSub(pos, halfSize);
+	box.max = VAdd(pos, halfSize);
+
+	// 回転行列を BoxType に保持（OBB 計算用）
+	box.rot = rotMat;
 }
 
 // AABBの設定
@@ -93,22 +132,28 @@ void BoxCollider::DrawCollider() const
 {
 	const BoxType& b = std::get<BoxType>(m_data);
 
-	// AABB の min / max
+	// AABB の min/max
 	const VECTOR& mn = b.min;
 	const VECTOR& mx = b.max;
 
-	// 8つの頂点
+	// 8つの頂点（ローカル座標）
 	VECTOR v[8] = {
-		VGet(mn.x, mn.y, mn.z),  // 0
-		VGet(mx.x, mn.y, mn.z),  // 1
-		VGet(mx.x, mx.y, mn.z),  // 2
-		VGet(mn.x, mx.y, mn.z),  // 3
-
-		VGet(mn.x, mn.y, mx.z),  // 4
-		VGet(mx.x, mn.y, mx.z),  // 5
-		VGet(mx.x, mx.y, mx.z),  // 6
-		VGet(mn.x, mx.y, mx.z)   // 7
+		VGet(mn.x, mn.y, mn.z),
+		VGet(mx.x, mn.y, mn.z),
+		VGet(mx.x, mx.y, mn.z),
+		VGet(mn.x, mx.y, mn.z),
+		VGet(mn.x, mn.y, mx.z),
+		VGet(mx.x, mn.y, mx.z),
+		VGet(mx.x, mx.y, mx.z),
+		VGet(mn.x, mx.y, mx.z)
 	};
+
+	// 回転行列を適用（ワールド回転を反映）
+	for (int i = 0; i < 8; ++i)
+	{
+		VECTOR center = VScale(VAdd(mn, mx), 0.5f); // 中心
+		v[i] = VAdd(VTransform(VSub(v[i], center), b.rot), center);
+	}
 
 	int col = GetColor(0, 255, 0);
 

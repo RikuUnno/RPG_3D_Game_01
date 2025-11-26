@@ -8,9 +8,10 @@ class BoxCollider
 	: public Collider
 {
 private:
+	float m_originalSize;
 
 public: // コライダー関係
-	BoxCollider(Transform transfrom, ColliderManager* manager);
+	BoxCollider(Transform transfrom, float boxSize, ColliderManager* manager);
 	virtual ~BoxCollider();
 	BoxCollider(const BoxCollider& other);
 
