@@ -8,6 +8,7 @@ class CapsuleCollider
 	: public Collider
 {
 private:
+	float m_originalRadius;   // スケール前の半径
 
 public: // コンストラクタ
 	CapsuleCollider(Transform transform, float height, float radius, ColliderManager* manager);

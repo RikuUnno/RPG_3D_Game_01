@@ -176,9 +176,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if (CheckHitKey(KEY_INPUT_A)) setZrot -= 0.1f;
         else if (CheckHitKey(KEY_INPUT_D)) setZrot += 0.1f;
 
-        cap.GetTrans()->SetRot(VGet(0.0f, 0.0f, setZrot));
-
-
+        cap.GetTrans()->SetRotDeg(VGet(0.0f, 0.0f, setZrot));
 
         //box.DrawCollider();
         //box.DrawOBB();
@@ -212,5 +210,3 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     
     return 0;        // ソフトの終了
 }
-
-

@@ -34,7 +34,8 @@ CapsuleCollider::CapsuleCollider(Transform transform, float height, float radius
     return c;
         }(),
             manager,
-            transform)
+            transform),
+    m_originalRadius(radius)
 {
     SetOBB(); // AABB設定
 }
@@ -74,8 +75,8 @@ CapsuleCollider::CapsuleCollider(const CapsuleCollider& other)
             return c;
         }(),
         other.m_manager,
-        other.m_transform // Transformのコピー
-            )
+        other.m_transform), // Transformのコピー
+        m_originalRadius(other.m_originalRadius)
 {
     SetOBB(); // コピー後にAABBを再設定
 
@@ -114,6 +115,12 @@ void CapsuleCollider::SetTrans()
     MATRIX rotY = MGetRotY(rot.y);
     MATRIX rotZ = MGetRotZ(rot.z);
     MATRIX rotMat = MMult(MMult(rotX, rotY), rotZ);
+
+    // XZの平均スケールを adiusに反映
+    float sx = scale.x;
+    float sz = scale.z;
+    float scaleXZ = (sx + sz) * 0.5f;     // 平均スケール
+    cap.radius = m_originalRadius * scaleXZ;
 
     // Y軸方向を Transform に沿わせる
     VECTOR upDir = VTransform(VGet(0, 1, 0), rotMat);
