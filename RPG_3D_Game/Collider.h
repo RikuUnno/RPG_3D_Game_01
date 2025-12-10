@@ -63,7 +63,7 @@ public: // PosƒQƒbƒ^[
 	virtual const SphereType* GetSphere() const { return nullptr; }
 	virtual const CapsuleType* GetCapsule() const { return nullptr; }
 
-	const OBB* Getobb() const { return &obb; }
+	const OBB* GetOBB() const { return &obb; }
 
 public: // ó‘Ôİ’è
 	void SetActiveCollider(bool active) { m_isActive = active; } // ó‘Ô‚Ìİ’è

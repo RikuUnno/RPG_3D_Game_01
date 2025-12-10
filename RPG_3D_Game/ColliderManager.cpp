@@ -1,4 +1,7 @@
 ﻿#include "ColliderManager.h"
+#include "DxLib.h"
+#include "cmath"
+#include <algorithm>
 
 ColliderManager::ColliderManager()
 {
@@ -10,14 +13,15 @@ ColliderManager::~ColliderManager()
 
 void ColliderManager::Update()
 {
-
 }
 
+// コライダーの追加
 void ColliderManager::AddCollider(Collider* collider)
 {
     m_allColliders.emplace_back(collider);
 }
 
+// コライダーの削除
 void ColliderManager::DeleteCollider(Collider* collider)
 {
     std::erase_if(m_allColliders, [&](const auto& elem) { return elem == collider; });
@@ -54,6 +58,8 @@ void ColliderManager::BroadPhase()
 {
     m_broadPhasePairs.clear();
 
+    LayerAndMaskPhase();
+
 #ifdef _DEBUG
     DrawFormatString(0, 150, GetColor(255, 255, 255), "colliderSize = %d", (int)m_layerMaskPairs.size());
 #endif // _DEBUG
@@ -63,20 +69,19 @@ void ColliderManager::BroadPhase()
         Collider* a = pair.first;
         Collider* b = pair.second;
 
-        // AABB を取得
-        //AABB aAABB = *a->GetAABB();
-        //AABB bAABB = *b->GetAABB();
+        // OBB を取得
+        OBB aOBB = *a->GetOBB();
+        OBB bOBB = *b->GetOBB();
 
-        //if (CheckAABB(aAABB, bAABB))
-        //{
-        //    // AABB が重なっていれば NarrowPhase へ
-        //    m_broadPhasePairs.emplace_back(a, b);
-        //}
+        if (HitCheckOBBToOBB(aOBB, bOBB))
+        {
+            // AABB が重なっていれば NarrowPhase へ
+            m_broadPhasePairs.emplace_back(a, b);
+        }
     }
 }
 
 // 当たり判定の実装
-
 void ColliderManager::NarrowPhase()
 {
     m_collisionPairs.clear();
@@ -101,19 +106,19 @@ void ColliderManager::NarrowPhase()
         // 形状ごとの判定
         if (typeA == ColliderType::Box && typeB == ColliderType::Box)
         {
-            const BoxType* a = colA->GetBox();
-            const BoxType* b = colB->GetBox();
-            if (a && b) isHit = CheckAABB(*a, *b);
+            const OBB* a = colA->GetOBB();   // ← OBB 取得
+            const OBB* b = colB->GetOBB();   // ← OBB 取得
+            if (a && b) isHit = HitCheckOBBToOBB(*a, *b);
         }
         else if (typeA == ColliderType::Box && typeB == ColliderType::Capsule)
         {
-            const BoxType* a = colA->GetBox();
+            const OBB* a = colA->GetOBB();
             const CapsuleType* b = colB->GetCapsule();
             if (a && b) isHit = HitCheckBoxToCapsule(*a, *b);
         }
         else if (typeA == ColliderType::Box && typeB == ColliderType::Sphere)
         {
-            const BoxType* a = colA->GetBox();
+            const OBB* a = colA->GetOBB();
             const SphereType* b = colB->GetSphere();
             if (a && b) isHit = HitCheckBoxToSphere(*a, *b);
         }
@@ -150,38 +155,117 @@ void ColliderManager::NarrowPhase()
     m_broadPhasePairs.clear(); // 次フレーム用にクリア
 }
 
-// AABBの判定 兼 BoxとBoxの判定
-bool ColliderManager::CheckAABB(const AABB& a, const AABB& b)
+// OBBの判定 兼 BoxとBoxの判定
+bool ColliderManager::HitCheckOBBToOBB(const OBB& a, const OBB& b)
 {
-    return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
-        (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
-        (a.min.z <= b.max.z && a.max.z >= b.min.z);
+    const VECTOR& Ap = a.center;
+    const VECTOR& Bp = b.center;
+    VECTOR T = VSub(Bp, Ap);
+
+    const VECTOR (&Aaxis)[3] = a.axes;
+    const VECTOR (&Baxis)[3] = b.axes;
+
+    double Ahalf[3] = { a.halfLen[0], a.halfLen[1], a.halfLen[2] };
+    double Bhalf[3] = { b.halfLen[0], b.halfLen[1], b.halfLen[2] };
+
+    double R[3][3], AbsR[3][3];
+    const double EPS = 1e-6;
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            R[i][j] = VDot(Aaxis[i], Baxis[j]);
+            AbsR[i][j] = fabs(R[i][j]) + EPS;
+        }
+    }
+
+    double tA[3] = {
+        VDot(T, Aaxis[0]),
+        VDot(T, Aaxis[1]),
+        VDot(T, Aaxis[2])
+    };
+
+    // A の軸
+    for (int i = 0; i < 3; i++) {
+        double ra = Ahalf[i];
+        double rb = Bhalf[0] * AbsR[i][0] + Bhalf[1] * AbsR[i][1] + Bhalf[2] * AbsR[i][2];
+        if (fabs(tA[i]) > ra + rb) return false;
+    }
+
+    // B の軸
+    for (int j = 0; j < 3; j++) {
+        double t = fabs(VDot(T, Baxis[j]));
+        double ra = Ahalf[0] * AbsR[0][j] + Ahalf[1] * AbsR[1][j] + Ahalf[2] * AbsR[2][j];
+        double rb = Bhalf[j];
+        if (t > ra + rb) return false;
+    }
+
+    // 交差（外積）9軸
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            double t = fabs(tA[(i+2)%3] * R[(i+1)%3][j] - tA[(i+1)%3] * R[(i+2)%3][j]);
+
+            double ra =
+                Ahalf[(i+1)%3] * AbsR[(i+2)%3][j] +
+                Ahalf[(i+2)%3] * AbsR[(i+1)%3][j];
+
+            double rb =
+                Bhalf[(j+1)%3] * AbsR[i][(j+2)%3] +
+                Bhalf[(j+2)%3] * AbsR[i][(j+1)%3];
+
+            if (t > ra + rb) return false;
+        }
+    }
+
+    return true;
 }
 
 // 球の中心とBoxとの最近点との距離で当たり判定
-bool ColliderManager::HitCheckBoxToSphere(const BoxType& b, const SphereType& s)
+bool ColliderManager::HitCheckBoxToSphere(const OBB& b, const SphereType& s)
 {
-    VECTOR c = s.spherePos;
+    VECTOR d = VSub(s.spherePos, b.center);
 
-    // Box内の最近点を取得
-    VECTOR closest = {
-        fmax(b.min.x, fmin(c.x, b.max.x)),
-        fmax(b.min.y, fmin(c.y, b.max.y)),
-        fmax(b.min.z, fmin(c.z, b.max.z))
-    };
+    float x = VDot(d, b.axes[0]);
+    float y = VDot(d, b.axes[1]);
+    float z = VDot(d, b.axes[2]);
 
-    VECTOR diff = VSub(c, closest);
-    double distSq = VDot(diff, diff);
+    float cx = std::fmax(-b.halfLen[0], std::fmin(x, b.halfLen[0]));
+    float cy = std::fmax(-b.halfLen[1], std::fmin(y, b.halfLen[1]));
+    float cz = std::fmax(-b.halfLen[2], std::fmin(z, b.halfLen[2]));
 
-    // 球の半径と比較
-    return distSq <= s.radius * s.radius;
+    VECTOR closest =
+        VAdd(b.center,
+            VAdd(
+                VAdd(VScale(b.axes[0], cx),
+                    VScale(b.axes[1], cy)),
+                VScale(b.axes[2], cz)));
+
+    float distSq = VSquareSize(VSub(closest, s.spherePos));
+
+    return distSq <= (float)(s.radius * s.radius);
 }
 
 // カプセルとBoxの判定
-bool ColliderManager::HitCheckBoxToCapsule(const BoxType& b, const CapsuleType& c)
+bool ColliderManager::HitCheckBoxToCapsule(const OBB& b, const CapsuleType& c)
 {
-    double distSq = SegmentAABBDistSq(c.posTop, c.posBottom, b);
-    return distSq <= (c.radius * c.radius);
+    auto ToLocal = [&](const VECTOR& p) {
+        VECTOR d = VSub(p, b.center);
+        return VGet(
+            VDot(d, b.axes[0]),
+            VDot(d, b.axes[1]),
+            VDot(d, b.axes[2])
+        );
+        };
+
+    VECTOR p0 = ToLocal(c.posTop);
+    VECTOR p1 = ToLocal(c.posBottom);
+
+    VECTOR aabbMin = VGet(-b.halfLen[0], -b.halfLen[1], -b.halfLen[2]);
+    VECTOR aabbMax = VGet(b.halfLen[0], b.halfLen[1], b.halfLen[2]);
+
+    // 修正：SegmentOBBDistSq ではなく AABB 用の関数を呼ぶ
+    double distSq = SegmentBoxDistSqLocal(p0, p1, aabbMin, aabbMax);
+
+    return distSq <= c.radius * c.radius;
 }
 
 // 中心点の距離と半径の和で判定
@@ -194,32 +278,40 @@ bool ColliderManager::HitCheckSphereToSphere(const SphereType& s1, const SphereT
     return distSq <= rSum * rSum;
 }
 
-// 球の中心とカプセル線分の距離で判定
+// Sphere と Capsule の当たり判定
 bool ColliderManager::HitCheckSphereToCapsule(const SphereType& s, const CapsuleType& c)
 {
+    // カプセルの中心軸（線分）と球の中心の距離²を計算
     double distSq = PointToSegmentDistSq(s.spherePos, c.posTop, c.posBottom);
-    double rSum = s.radius + c.radius;
 
-    return distSq <= rSum * rSum;
+    // 半径の和
+    double radiusSum = s.radius + c.radius;
+
+    // 距離²と半径の和²を比較
+    return distSq <= radiusSum * radiusSum;
 }
 
-// 中心線同士の最近距離と半径の和で判定
+// カプセル同士の当たり判定
 bool ColliderManager::HitCheckCapsuleToCapsule(const CapsuleType& c1, const CapsuleType& c2)
 {
+    // c1 の中心線と c2 の中心線の最近距離²
     double distSq = SegmentSegmentDistSq(c1.posTop, c1.posBottom, c2.posTop, c2.posBottom);
+
+    // 半径の和
     double rSum = c1.radius + c2.radius;
 
+    // 距離²が半径の和の²以下なら当たり
     return distSq <= rSum * rSum;
 }
 
 // 補助関数
 
 // 線分同士の最近距離²を求める
-double ColliderManager::SegmentSegmentDistSq(const VECTOR& p1, const VECTOR& q1, const VECTOR& p2, const VECTOR& q2)
+double ColliderManager::SegmentSegmentDistSq(const VECTOR& p1, const VECTOR& q1, const VECTOR& p2, const VECTOR& q2) 
 {
     VECTOR d1 = VSub(q1, p1); // 線分1の方向
     VECTOR d2 = VSub(q2, p2); // 線分2の方向
-    VECTOR r = VSub(p1, p2);  // 差ベクトル
+    VECTOR r = VSub(p1, p2);  // p1 - p2
 
     double a = VDot(d1, d1);
     double e = VDot(d2, d2);
@@ -230,24 +322,23 @@ double ColliderManager::SegmentSegmentDistSq(const VECTOR& p1, const VECTOR& q1,
     if (a <= 1e-6 && e <= 1e-6) return VDot(r, r); // 両方とも点
 
     if (a <= 1e-6) {
-        s = 0;
+        s = 0.0;
         t = f / e;
         t = fmax(0.0, fmin(1.0, t));
     }
     else {
         double c = VDot(d1, r);
         if (e <= 1e-6) {
-            t = 0;
+            t = 0.0;
             s = fmax(0.0, fmin(1.0, -c / a));
         }
         else {
             double b = VDot(d1, d2);
             double denom = a * e - b * b;
-
             if (denom != 0.0)
                 s = fmax(0.0, fmin(1.0, (b * f - c * e) / denom));
             else
-                s = 0;
+                s = 0.0;
 
             t = (b * s + f) / e;
 
@@ -264,88 +355,67 @@ double ColliderManager::SegmentSegmentDistSq(const VECTOR& p1, const VECTOR& q1,
 
     VECTOR c1 = VAdd(p1, VScale(d1, (float)s));
     VECTOR c2 = VAdd(p2, VScale(d2, (float)t));
-    VECTOR d = VSub(c1, c2);
-
-    return VDot(d, d);
+    VECTOR diff = VSub(c1, c2);
+    return VDot(diff, diff); // 距離²を返す
 }
 
-// 点と線分の距離²を求める
+// 点 p と線分 ab の距離²を求める
 double ColliderManager::PointToSegmentDistSq(const VECTOR& p, const VECTOR& a, const VECTOR& b)
 {
-    VECTOR ab = VSub(b, a);
-    VECTOR ap = VSub(p, a);
-    double abLenSq = VDot(ab, ab);
+    VECTOR ab = VSub(b, a);    // 線分の方向ベクトル
+    VECTOR ap = VSub(p, a);    // 点 a から p へのベクトル
+    double abLenSq = VDot(ab, ab); // 線分の長さ²
 
     if (abLenSq == 0.0) return VDot(ap, ap); // 線分が点の場合
 
-    // 最近点を線分上に投影
+    // 点 p を線分 ab に射影
     double t = VDot(ap, ab) / abLenSq;
-    t = fmax(0.0, fmin(1.0, t)); // t を 0〜1 にクランプ
+    t = fmax(0.0, fmin(1.0, t)); // 線分上にクランプ
 
-    VECTOR closest = VAdd(a, VScale(ab, (float)t));
-    VECTOR d = VSub(p, closest);
-    return VDot(d, d); // 距離の2乗
+    VECTOR closest = VAdd(a, VScale(ab, (float)t)); // 線分上の最近点
+    VECTOR diff = VSub(p, closest);
+
+    return VDot(diff, diff); // 距離²
 }
 
-// 点とAABBの距離²を計算（点がAABB内なら0）
-double ColliderManager::PointToAABBDistSq(const VECTOR& p, const BoxType& box)
+// 線分と局所座標の距離²
+double ColliderManager::SegmentBoxDistSqLocal(const VECTOR& p0, const VECTOR& p1, const VECTOR& mn, const VECTOR& mx)
 {
-    double dx = fmax(fmax(box.min.x - p.x, 0.0), p.x - box.max.x);
-    double dy = fmax(fmax(box.min.y - p.y, 0.0), p.y - box.max.y);
-    double dz = fmax(fmax(box.min.z - p.z, 0.0), p.z - box.max.z);
-    return dx * dx + dy * dy + dz * dz;
-}
+    VECTOR d = VSub(p1, p0);  // 線分方向
+    double t0 = 0.0, t1 = 1.0;
 
-// 線分とAABBの距離²を計算
-double ColliderManager::SegmentAABBDistSq(const VECTOR& p1, const VECTOR& p2, const BoxType& box)
-{
-    // 線分方向ベクトル
-    VECTOR d = VSub(p2, p1);
-    double length = sqrt(VDot(d, d));
-    if (length < 1e-6) {
-        // 線分が点なら点とAABBの距離
-        return PointToAABBDistSq(p1, box);
-    }
-    VECTOR dir = VScale(d, 1.0f / (float)length);
+    for (int i = 0; i < 3; i++)
+    {
+        double s = (&p0.x)[i];
+        double di = (&d.x)[i];
+        double a = (&mn.x)[i];
+        double b = (&mx.x)[i];
 
-    // 線分パラメータの範囲
-    double t_min = 0.0;
-    double t_max = length;
-
-    // 3軸でスラブテストを行い、線分がAABBに交差するか判定
-    for (int i = 0; i < 3; ++i) {
-        double p = ((float*)&p1)[i];
-        double d_i = ((float*)&dir)[i];
-        double box_min = ((float*)&box.min)[i];
-        double box_max = ((float*)&box.max)[i];
-
-        if (fabs(d_i) < 1e-8) {
-            // 平行で線分外なら距離は最短点との距離
-            if (p < box_min || p > box_max) {
-                return PointToAABBDistSq(p1, box);
-            }
+        if (fabs(di) < 1e-8)
+        {
+            if (s < a || s > b) return 1e9;  // 線分が平行で範囲外
         }
-        else {
-            // t の範囲を更新
-            double t1 = (box_min - p) / d_i;
-            double t2 = (box_max - p) / d_i;
-            if (t1 > t2) std::swap(t1, t2);
-            t_min = fmax(t_min, t1);
-            t_max = fmin(t_max, t2);
-            if (t_min > t_max) {
-                // 線分はAABBに交差しない → 距離は最近点の距離
-                return PointToAABBDistSq(p1, box);
-            }
+        else
+        {
+            double o = 1.0 / di;
+            double tA = (a - s) * o;
+            double tB = (b - s) * o;
+            if (tA > tB) std::swap(tA, tB);
+            t0 = std::fmax(t0, tA);
+            t1 = std::fmin(t1, tB);
+            if (t0 > t1) return 1e9;  // 線分はAABBに交差しない
         }
     }
 
-    // 線分がAABBと交差する → 距離は0
-    if (t_min <= t_max && t_min <= length && t_max >= 0)
-        return 0.0;
+    double t = std::clamp(t0, 0.0, 1.0);
+    VECTOR closest = VAdd(p0, VScale(d, (float)t));
 
-    // 線分とAABBが交差しない場合は
-    // 線分の端点とAABBの距離の最小値を返す
-    double dist1 = PointToAABBDistSq(p1, box);
-    double dist2 = PointToAABBDistSq(p2, box);
-    return fmin(dist1, dist2);
+    // 線分上の最近点をAABB内にクランプ
+    VECTOR q = {
+        std::clamp(closest.x, mn.x, mx.x),
+        std::clamp(closest.y, mn.y, mx.y),
+        std::clamp(closest.z, mn.z, mx.z)
+    };
+
+    return VSquareSize(VSub(closest, q));  // 距離²
 }

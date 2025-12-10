@@ -36,9 +36,9 @@ private: // 当たり判定処理
 	void NarrowPhase();			// 当たり判定の実装
 
 private: // 当たり判定
-	bool CheckAABB(const AABB& a, const AABB& b); // AABBの判定 兼 BoxとBoxの判定
-	bool HitCheckBoxToSphere(const BoxType& b, const SphereType& s); // BoxとSphereの判定
-	bool HitCheckBoxToCapsule(const BoxType& b, const CapsuleType& c); // BoxとCapsaleの判定
+	bool HitCheckOBBToOBB(const OBB& a, const OBB& b); // OBBの判定 兼 BoxとBoxの判定
+	bool HitCheckBoxToSphere(const OBB& b, const SphereType& s); // BoxとSphereの判定
+	bool HitCheckBoxToCapsule(const OBB& b, const CapsuleType& c); // BoxとCapsaleの判定
 	bool HitCheckSphereToSphere(const SphereType& s1, const SphereType& s2); // SphereとSphereの判定
 	bool HitCheckSphereToCapsule(const SphereType& s, const CapsuleType& c); // SphereとCapsaleの判定
 	bool HitCheckCapsuleToCapsule(const CapsuleType& c1, const CapsuleType& c2); // CapsaleとCapsaleの判定
@@ -46,10 +46,8 @@ private: // 当たり判定
 private: // 当たり判定用の補助関数
 	// 線分同士の最近距離²を求める
 	double SegmentSegmentDistSq(const VECTOR& p1, const VECTOR& q1, const VECTOR& p2, const VECTOR& q2);
-	// 点と線分の距離²を求める
+	// 点 p と線分 ab の距離²を求める
 	double PointToSegmentDistSq(const VECTOR& p, const VECTOR& a, const VECTOR& b);
-	// 点とAABBの距離²を計算（点がAABB内なら0）
-	double PointToAABBDistSq(const VECTOR& p, const BoxType& box);
-	// 線分とAABBの距離²を計算
-	double SegmentAABBDistSq(const VECTOR& p1, const VECTOR& p2, const BoxType& box);
+	// 線分と局所座標の距離²
+	double SegmentBoxDistSqLocal(const VECTOR& p0, const VECTOR& p1,const VECTOR& mn, const VECTOR& mx);
 };
