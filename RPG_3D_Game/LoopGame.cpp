@@ -168,8 +168,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         time.Update();
 
         // ~~~~~~~ テスト　~~~~~~~~~
-        
-
 
         // キー入力でZ回転を調整
         if (CheckHitKey(KEY_INPUT_A)) setZrot -= 0.3f; // 左回転

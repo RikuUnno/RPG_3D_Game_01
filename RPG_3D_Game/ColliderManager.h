@@ -13,7 +13,6 @@ private:
 	std::vector<std::pair<Collider*, Collider*>> m_broadPhasePairs;     // AABB 通過
 	std::vector<std::pair<Collider*, Collider*>> m_collisionPairs;      // 実際に衝突中
 
-
 public: // コンストラクタ関係
 	ColliderManager();
 	virtual ~ColliderManager();

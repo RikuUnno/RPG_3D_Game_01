@@ -2,16 +2,30 @@
 
 Player::Player()
 {
-
+	Initialize();
 }
 
 Player::~Player()
 {
+	Finalize();
+}
+
+void Player::Initialize()
+{
 
 }
 
-// äÓñ{êiçs
+void Player::Finalize()
+{
+
+}
+
 void Player::Update()
+{
+
+}
+
+void Player::Draw()
 {
 
 }

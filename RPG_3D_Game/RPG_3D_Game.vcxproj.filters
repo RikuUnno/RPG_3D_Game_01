@@ -28,92 +28,8 @@
     <Filter Include="ヘッダー ファイル\GameManager">
       <UniqueIdentifier>{aea360db-c9a2-4f82-9915-7e20dca7074e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Time">
-      <UniqueIdentifier>{4cf9fdab-614d-4adb-99b0-7a8061e91e20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\main">
       <UniqueIdentifier>{de33b42a-5b14-486a-928d-e4c79cb3d95c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Player">
-      <UniqueIdentifier>{66803e32-d929-4777-bab5-599d3e613482}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Player">
-      <UniqueIdentifier>{45f14849-a146-4120-8979-66909ecc297c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck">
-      <UniqueIdentifier>{8d061e4c-0c36-473b-a104-c3007e02058b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider">
-      <UniqueIdentifier>{08ada502-394d-4b8a-b79e-be16ddd6efae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\ColliderManager">
-      <UniqueIdentifier>{96449ff1-a68a-4f79-b1d1-c3f6c329f902}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck">
-      <UniqueIdentifier>{bcf95256-513d-4b32-843a-87b277a9283c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider">
-      <UniqueIdentifier>{c17360a3-72f6-4009-b1b8-3a2fae56deb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\ColliderManager">
-      <UniqueIdentifier>{27375e23-f440-47bd-b4a8-ddd9eba749e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\Collider">
-      <UniqueIdentifier>{93fd4e1d-b0ea-4ab5-add0-021b9e52925d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider\Collider">
-      <UniqueIdentifier>{bd08ecac-4568-4952-854e-5880cfae06b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo">
-      <UniqueIdentifier>{0fedbf6f-8d9b-46df-b5ed-1513c9ea82e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo\Layer">
-      <UniqueIdentifier>{54304c99-fb38-440c-ab41-723ad1883b2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\ColliderInfo\Tag">
-      <UniqueIdentifier>{0ae378d0-0e21-4912-8e51-f09b4080d7ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Time">
-      <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\ColliderType">
-      <UniqueIdentifier>{a41dd259-7a48-4e98-a15c-909b349a7659}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider\SphereTypeCollider">
-      <UniqueIdentifier>{bc9c51ff-556e-4b90-89f2-dd163f667931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider\BoxTypeCollider">
-      <UniqueIdentifier>{ffe0c70e-3583-4806-905e-b600779e533f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\HitCheck\Collider\CapsuleTypeCollider">
-      <UniqueIdentifier>{362ee7b4-2074-4d6f-9c26-463af9951653}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\SphereTypeCollider">
-      <UniqueIdentifier>{3f5f021e-f91c-4dcb-b511-da4403591abc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\BoxTypeCollider">
-      <UniqueIdentifier>{aa485562-0795-4f1d-8221-8477bb4a5528}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\HitCheck\Collider\CapsuleTypeCollider">
-      <UniqueIdentifier>{d9e063c9-c63d-4be8-acf6-e0c82c1a7a61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Transform">
-      <UniqueIdentifier>{a9051f8c-5165-408d-b6df-f3d253174411}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Quaternion">
-      <UniqueIdentifier>{61e16313-b9d9-491c-b59e-dd898720c70d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Quaternion">
-      <UniqueIdentifier>{d0a66df4-d02e-45c5-ad74-e5e154129d78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\GameObject">
-      <UniqueIdentifier>{3e34ed97-5eef-4e5a-a430-f609bc60b9c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\GameObject">
-      <UniqueIdentifier>{6ae226c4-53d0-4926-a8dd-ec5558237e7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Transform">
-      <UniqueIdentifier>{e0284e6d-a02d-48be-9ec1-5b0062d9eda5}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{33dc5321-002a-4174-9224-d6121bb174ff}</UniqueIdentifier>
@@ -136,6 +52,102 @@
     <Filter Include="ソース ファイル\Scene\SceneManager\SceneManager">
       <UniqueIdentifier>{bbf7ae03-aa1c-467d-bda8-3e6502041979}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System">
+      <UniqueIdentifier>{ee1d31dc-584c-4d60-ae86-0d1699db7720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\Quaternion">
+      <UniqueIdentifier>{d0a66df4-d02e-45c5-ad74-e5e154129d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck">
+      <UniqueIdentifier>{8d061e4c-0c36-473b-a104-c3007e02058b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\Collider">
+      <UniqueIdentifier>{08ada502-394d-4b8a-b79e-be16ddd6efae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\Collider\Collider">
+      <UniqueIdentifier>{bd08ecac-4568-4952-854e-5880cfae06b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\Collider\SphereTypeCollider">
+      <UniqueIdentifier>{bc9c51ff-556e-4b90-89f2-dd163f667931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\Collider\BoxTypeCollider">
+      <UniqueIdentifier>{ffe0c70e-3583-4806-905e-b600779e533f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\Collider\CapsuleTypeCollider">
+      <UniqueIdentifier>{362ee7b4-2074-4d6f-9c26-463af9951653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\HitCheck\ColliderManager">
+      <UniqueIdentifier>{96449ff1-a68a-4f79-b1d1-c3f6c329f902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System">
+      <UniqueIdentifier>{312b0bb4-8c03-4058-8309-6af748af27da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\Quaternion">
+      <UniqueIdentifier>{61e16313-b9d9-491c-b59e-dd898720c70d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck">
+      <UniqueIdentifier>{bcf95256-513d-4b32-843a-87b277a9283c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider">
+      <UniqueIdentifier>{c17360a3-72f6-4009-b1b8-3a2fae56deb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider\Collider">
+      <UniqueIdentifier>{93fd4e1d-b0ea-4ab5-add0-021b9e52925d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider\ColliderType">
+      <UniqueIdentifier>{a41dd259-7a48-4e98-a15c-909b349a7659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider\SphereTypeCollider">
+      <UniqueIdentifier>{3f5f021e-f91c-4dcb-b511-da4403591abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider\BoxTypeCollider">
+      <UniqueIdentifier>{aa485562-0795-4f1d-8221-8477bb4a5528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\Collider\CapsuleTypeCollider">
+      <UniqueIdentifier>{d9e063c9-c63d-4be8-acf6-e0c82c1a7a61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\ColliderManager">
+      <UniqueIdentifier>{27375e23-f440-47bd-b4a8-ddd9eba749e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\ColliderInfo">
+      <UniqueIdentifier>{0fedbf6f-8d9b-46df-b5ed-1513c9ea82e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\ColliderInfo\Layer">
+      <UniqueIdentifier>{54304c99-fb38-440c-ab41-723ad1883b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\HitCheck\ColliderInfo\Tag">
+      <UniqueIdentifier>{0ae378d0-0e21-4912-8e51-f09b4080d7ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\GameObject">
+      <UniqueIdentifier>{3e34ed97-5eef-4e5a-a430-f609bc60b9c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\GameObject">
+      <UniqueIdentifier>{6ae226c4-53d0-4926-a8dd-ec5558237e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\Time">
+      <UniqueIdentifier>{4cf9fdab-614d-4adb-99b0-7a8061e91e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\Transform">
+      <UniqueIdentifier>{e0284e6d-a02d-48be-9ec1-5b0062d9eda5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\Transform">
+      <UniqueIdentifier>{a9051f8c-5165-408d-b6df-f3d253174411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\Time">
+      <UniqueIdentifier>{5482dc02-7d5b-4580-936f-b906d2305312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Character">
+      <UniqueIdentifier>{91a89219-b788-4852-b2a0-4b8558faba85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character">
+      <UniqueIdentifier>{4147c852-9092-4ac2-ac8f-72103e6d7997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character\Player">
+      <UniqueIdentifier>{66803e32-d929-4777-bab5-599d3e613482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Character\Player">
+      <UniqueIdentifier>{45f14849-a146-4120-8979-66909ecc297c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoopGame.cpp">
@@ -148,34 +160,37 @@
       <Filter>ソース ファイル\GameManager</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
-      <Filter>ソース ファイル\Time</Filter>
+      <Filter>ソース ファイル\System\Time</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Player</Filter>
+      <Filter>ソース ファイル\Character\Player</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>ソース ファイル\HitCheck\Collider\Collider</Filter>
+      <Filter>ソース ファイル\System\HitCheck\Collider\Collider</Filter>
     </ClCompile>
     <ClCompile Include="ColliderManager.cpp">
-      <Filter>ソース ファイル\HitCheck\ColliderManager</Filter>
+      <Filter>ソース ファイル\System\HitCheck\ColliderManager</Filter>
     </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
-      <Filter>ソース ファイル\HitCheck\Collider\BoxTypeCollider</Filter>
+      <Filter>ソース ファイル\System\HitCheck\Collider\BoxTypeCollider</Filter>
     </ClCompile>
     <ClCompile Include="CapsuleCollider.cpp">
-      <Filter>ソース ファイル\HitCheck\Collider\CapsuleTypeCollider</Filter>
+      <Filter>ソース ファイル\System\HitCheck\Collider\CapsuleTypeCollider</Filter>
     </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
-      <Filter>ソース ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
+      <Filter>ソース ファイル\System\HitCheck\Collider\SphereTypeCollider</Filter>
     </ClCompile>
     <ClCompile Include="Quaternion.cpp">
-      <Filter>ソース ファイル\Quaternion</Filter>
+      <Filter>ソース ファイル\System\Quaternion</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
+      <Filter>ソース ファイル\System\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>ソース ファイル\Transform</Filter>
+      <Filter>ソース ファイル\System\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,52 +201,55 @@
       <Filter>ヘッダー ファイル\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
-      <Filter>ヘッダー ファイル\Time</Filter>
+      <Filter>ヘッダー ファイル\System\Time</Filter>
     </ClInclude>
     <ClInclude Include="GameInfo.h">
       <Filter>ヘッダー ファイル\main</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\Player</Filter>
+      <Filter>ヘッダー ファイル\Character\Player</Filter>
     </ClInclude>
     <ClInclude Include="ColliderManager.h">
-      <Filter>ヘッダー ファイル\HitCheck\ColliderManager</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\ColliderManager</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\Collider</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\Collider\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h">
-      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Layer</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\ColliderInfo\Layer</Filter>
     </ClInclude>
     <ClInclude Include="Tag.h">
-      <Filter>ヘッダー ファイル\HitCheck\ColliderInfo\Tag</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\ColliderInfo\Tag</Filter>
     </ClInclude>
     <ClInclude Include="ColliderType.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\ColliderType</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\Collider\ColliderType</Filter>
     </ClInclude>
     <ClInclude Include="CapsuleCollider.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\CapsuleTypeCollider</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\Collider\CapsuleTypeCollider</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\BoxTypeCollider</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\Collider\BoxTypeCollider</Filter>
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
-      <Filter>ヘッダー ファイル\HitCheck\Collider\SphereTypeCollider</Filter>
+      <Filter>ヘッダー ファイル\System\HitCheck\Collider\SphereTypeCollider</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>ヘッダー ファイル\Transform</Filter>
+      <Filter>ヘッダー ファイル\System\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Quaternion.h">
-      <Filter>ヘッダー ファイル\Quaternion</Filter>
+      <Filter>ヘッダー ファイル\System\Quaternion</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
+      <Filter>ヘッダー ファイル\System\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
